@@ -14,7 +14,7 @@ function PriceRadio() {
 
   return (
     <FormControl component="fieldset" style={{ width: "100%" }}>
-      <Typography variant="h5">Price</Typography>
+      <Typography variant="h6">Price</Typography>
       <RadioGroup
         aria-label="gender"
         name="gender1"

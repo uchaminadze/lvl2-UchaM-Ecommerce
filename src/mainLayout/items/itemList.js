@@ -1,5 +1,7 @@
 import { Grid } from "@material-ui/core";
 import React, { useEffect, useState } from "react";
+import PagePagintaion from "../singlerow/pagintaion";
+import SingleRow from "../singlerow/singleRow";
 import ItemCard from "./itemCard";
 
 function ItemList() {
@@ -29,10 +31,12 @@ function ItemList() {
 
   return (
     <Grid item md={8} sm={9}>
-      <Grid container spacing={1}>
-        <Grid container spacing={2}>
+      <Grid container>
+        <SingleRow />
+        <Grid container style={{ marginTop: "2rem" }}>
           <ItemCard items={items} />
         </Grid>
+        <SingleRow />
       </Grid>
     </Grid>
   );

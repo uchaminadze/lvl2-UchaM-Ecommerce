@@ -25,7 +25,7 @@ function Condition() {
 
   return (
     <List className={classes.checkbox}>
-      <Typography variant="h5">Condition</Typography>
+      <Typography variant="h6">Condition</Typography>
       {["New", "Used", "Collectible", "Renewed"].map((value) => {
         const preventDefault = (event) => event.preventDefault();
 

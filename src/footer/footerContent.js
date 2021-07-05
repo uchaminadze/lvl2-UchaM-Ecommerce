@@ -1,4 +1,11 @@
-import { Grid, Link, ListItemText, Typography } from "@material-ui/core";
+import {
+  Box,
+  Container,
+  Grid,
+  Link,
+  ListItemText,
+  Typography,
+} from "@material-ui/core";
 import { List } from "@material-ui/core";
 import { ListItem } from "@material-ui/core";
 import React from "react";
@@ -6,23 +13,20 @@ import React from "react";
 function FooterContent() {
   return (
     <Grid item style={{ minHeight: "30vh", backgroundColor: "#2E2E2E" }}>
-      <Grid
-        container
+      <Container
+        maxWidth="lg"
         style={{
-          width: "70%",
-          margin: "0 auto",
           minHeight: "30vh",
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
-          padding: "50px 0",
           color: "white",
         }}
       >
-        <Grid container>
+        <Grid container style={{ padding: "50px 0 0 0" }}>
           <Grid item md={3} xs={12}>
             <Typography variant="h5">About me</Typography>
-            <Typography variant="p" margin="20px">
+            <Typography variant="p" style={{ marginTop: "20px" }}>
               Here you can use rows and columns to organize your footer content.
               Lorem ipsum dolor sit amet, consectetur adipisicing elit.
             </Typography>
@@ -86,7 +90,23 @@ function FooterContent() {
             </List>
           </Grid>
         </Grid>
-      </Grid>
+      </Container>
+      <Box
+        style={{
+          minHeight: "50px",
+          backgroundColor: "#252525",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <Typography variant="subtitle2" style={{ color: "white" }}>
+          © 2020 Copyright:
+          <Link href="#" style={{ color: "white", marginLeft: "0.5rem" }}>
+            MDBootstrap.com
+          </Link>
+        </Typography>
+      </Box>
     </Grid>
   );
 }

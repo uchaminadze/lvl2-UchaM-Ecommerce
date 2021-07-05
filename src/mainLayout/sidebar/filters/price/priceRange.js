@@ -5,7 +5,7 @@ import { Box } from "@material-ui/core";
 import UseStyles from "../../sidebarClasses";
 
 function valuetext(value) {
-  return `${value}$`;
+  return `${value} $`;
 }
 
 function PriceRange() {

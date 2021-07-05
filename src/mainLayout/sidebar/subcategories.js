@@ -1,73 +1,34 @@
 import { Link, List } from "@material-ui/core";
-import { Box, ListItem, ListItemText, Typography } from "@material-ui/core";
+import { Box, Typography } from "@material-ui/core";
 import React from "react";
 
 function Subcategories() {
   const preventDefault = (event) => event.preventDefault();
   return (
     <Box style={{ width: "100%" }}>
-      <Typography variant="h5">Subcategories</Typography>
+      <Typography variant="h6">Subcategories</Typography>
       <List component="nav">
-        <Typography>
-          <Link
-            href="#"
-            onClick={preventDefault}
-            color="inherit"
-            underline="none"
-          >
-            RETURN TO CLOTHING, SHOES, ACCESSORIES
-          </Link>
-        </Typography>
-        <Typography>
-          <Link
-            href="#"
-            onClick={preventDefault}
-            color="inherit"
-            underline="none"
-          >
-            DRESSES
-          </Link>
-        </Typography>
-        <Typography>
-          <Link
-            href="#"
-            onClick={preventDefault}
-            color="inherit"
-            underline="none"
-          >
-            TOPS, TEES & BLOUSES
-          </Link>
-        </Typography>
-        <Typography>
-          <Link
-            href="#"
-            onClick={preventDefault}
-            color="inherit"
-            underline="none"
-          >
-            SWEATERS
-          </Link>
-        </Typography>
-        <Typography>
-          <Link
-            href="#"
-            onClick={preventDefault}
-            color="inherit"
-            underline="none"
-          >
-            FASHION HOODIES & SWEATSHIRTS
-          </Link>
-        </Typography>
-        <Typography>
-          <Link
-            href="#"
-            onClick={preventDefault}
-            color="inherit"
-            underline="none"
-          >
-            JEANS
-          </Link>
-        </Typography>
+        {[
+          "RETURN TO CLOTHING, SHOES, ACCESSORIES",
+          "DRESSES",
+          "TOPS, TEES & BLOUSES",
+          "SWEATERS",
+          "FASHION HOODIES & SWEATSHIRTS",
+          "JEANS",
+        ].map((value) => {
+          return (
+            <Typography variant="body2" style={{ marginTop: "1rem" }}>
+              <Link
+                href="#"
+                onClick={preventDefault}
+                color="inherit"
+                underline="none"
+              >
+                {value}
+              </Link>
+            </Typography>
+          );
+        })}
       </List>
     </Box>
   );

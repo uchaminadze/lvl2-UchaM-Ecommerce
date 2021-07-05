@@ -8,7 +8,7 @@ function Search() {
   const classes = UseStyles();
   return (
     <Box style={{ width: "100%" }}>
-      <Typography variant="h5">Filters</Typography>
+      <Typography variant="h6">Filters</Typography>
       <Paper component="form" className={classes.root}>
         <TextField
           className={classes.input}

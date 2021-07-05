@@ -25,8 +25,8 @@ function Reviews() {
   }, []);
 
   return (
-    <List className={classes.review}>
-      <Typography variant="h5">Avg. Customer Review</Typography>
+    <List>
+      <Typography variant="h6">Avg. Customer Review</Typography>
       {["& UP", "& UP", "& UP", "& UP"].map((value) => {
         const preventDefault = (event) => event.preventDefault();
 
@@ -47,11 +47,15 @@ function Reviews() {
                   className={classes.review}
                   underline="none"
                 >
-                  <Icon className="fas fa-star" />
-                  <Icon className="fas fa-star" />
-                  <Icon className="fas fa-star" />
-                  <Icon className="fas fa-star" />
-                  <Icon className="far fa-star" />
+                  {[
+                    "fas fa-star",
+                    "fas fa-star",
+                    "fas fa-star",
+                    "fas fa-star",
+                    "far fa-star",
+                  ].map((value, index) => {
+                    return <Icon key={index} className={value}></Icon>;
+                  })}
 
                   {value}
                 </Link>

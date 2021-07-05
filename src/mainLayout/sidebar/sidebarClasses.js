@@ -2,15 +2,12 @@ import { makeStyles } from "@material-ui/core";
 
 const UseStyles = makeStyles((theme) => ({
   root: {
-    padding: "2px 4px",
     display: "flex",
     alignItems: "center",
     width: "100%",
     boxShadow: "none",
   },
   input: {
-    // marginLeft: theme.spacing(1),
-    // flex: 1,
     width: "100%",
   },
   iconButton: {
@@ -25,19 +22,23 @@ const UseStyles = makeStyles((theme) => ({
     width: "100%",
     // maxWidth: 360,
     backgroundColor: theme.palette.background.paper,
-    "& > .fas": {
+    "& > .fas, .far": {
       color: "blue",
+      fontSize: "1rem",
     },
+    display: "flex",
+    gap: "0.5rem",
+    marginTop: "0.5rem",
   },
 
   priceInputs: {
-    // display: "flex",
+    display: "flex",
     // flexWrap: "wrap",
     width: "100%",
   },
   margin: {
     margin: theme.spacing(0, 2, 2, 0),
-    width: "160px",
+    width: "100%",
   },
 
   priceRange: {

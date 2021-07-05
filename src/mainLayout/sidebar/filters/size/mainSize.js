@@ -23,7 +23,7 @@ function MainSize() {
 
   return (
     <List>
-      <Typography variant="h5">Size</Typography>
+      <Typography variant="h6">Size</Typography>
       {["34", "36", "38", "40"].map((value) => {
         const preventDefault = (event) => event.preventDefault();
         return (

@@ -1,6 +1,6 @@
 import { loadCSS } from "fg-loadcss";
 import Icon from "@material-ui/core/Icon";
-import { Grid, Link, Typography } from "@material-ui/core";
+import { Container, Grid, Link, Typography } from "@material-ui/core";
 import { Box } from "@material-ui/core";
 import React from "react";
 import UseStyles from "./footerClasses";
@@ -19,15 +19,13 @@ function FooterHeadBlue() {
   }, []);
   return (
     <Box style={{ backgroundColor: "#1266F1" }}>
-      <Grid
-        container
+      <Container
+        maxWidth="lg"
         style={{
           display: "flex",
           justifyContent: "space-between",
           flexWrap: "wrap",
           color: "white",
-          margin: "0 auto",
-          width: "70%",
           alignItems: "center",
           minHeight: "8vh",
         }}
@@ -59,7 +57,7 @@ function FooterHeadBlue() {
             })}
           </Link>
         </Grid>
-      </Grid>
+      </Container>
     </Box>
   );
 }

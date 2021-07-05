@@ -101,50 +101,56 @@ function Nav() {
             </Hidden>
           </div>
         </Toolbar>
-        <Collapse in={open} timeout="auto" unmountOnExit>
-          <List
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-            }}
-          >
-            <IconButton color="inherit">
-              <Badge
-                badgeContent={1}
-                color="secondary"
-                style={{ margin: "0 20px" }}
-              ></Badge>
-              <ShoppingCartIcon />
-            </IconButton>
-
-            <ListItem
-              style={{ display: "flex", gap: "1rem", flexDirection: "column" }}
-            >
-              <Link href="#" style={{ color: "black" }}>
-                Shop
-              </Link>
-              <Link href="#" style={{ color: "black" }}>
-                Contact
-              </Link>
-              <Link href="#" style={{ color: "black" }}>
-                Sign in
-              </Link>
-            </ListItem>
-
-            <Button
+        <Hidden mdUp>
+          <Collapse in={open} timeout="auto" unmountOnExit>
+            <List
               style={{
-                width: 100,
-                color: "black",
-                border: "3px solid black",
-                borderRadius: "50px",
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
               }}
-              variant="outlined"
             >
-              SIGN UP
-            </Button>
-          </List>
-        </Collapse>
+              <IconButton color="inherit">
+                <Badge
+                  badgeContent={1}
+                  color="secondary"
+                  style={{ margin: "0 20px" }}
+                ></Badge>
+                <ShoppingCartIcon />
+              </IconButton>
+
+              <ListItem
+                style={{
+                  display: "flex",
+                  gap: "1rem",
+                  flexDirection: "column",
+                }}
+              >
+                <Link href="#" style={{ color: "black" }}>
+                  Shop
+                </Link>
+                <Link href="#" style={{ color: "black" }}>
+                  Contact
+                </Link>
+                <Link href="#" style={{ color: "black" }}>
+                  Sign in
+                </Link>
+              </ListItem>
+
+              <Button
+                style={{
+                  width: 100,
+                  color: "black",
+                  border: "3px solid black",
+                  borderRadius: "50px",
+                }}
+                variant="outlined"
+              >
+                SIGN UP
+              </Button>
+            </List>
+          </Collapse>
+        </Hidden>
       </AppBar>
     </div>
   );
