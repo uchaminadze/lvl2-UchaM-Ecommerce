@@ -6,13 +6,13 @@ import Sidebar from "./sidebar/sidebar";
 
 function Main() {
   return (
-    <Container maxWidth="lg">
-      <main style={{ margin: "100px 0" }}>
-        <Grid container spacing={3} justify="center">
+    <Container maxWidth="lg" component="main" style={{ margin: "100px auto" }}>
+      <Grid container spacing={3} justify="center">
+        <Grid item md={4} sm={9} style={{ minWidth: "30%" }}>
           <Sidebar />
-          <ItemList />
         </Grid>
-      </main>
+        <ItemList />
+      </Grid>
     </Container>
   );
 }

@@ -7,12 +7,10 @@ import Subcategories from "./subcategories";
 
 function Sidebar() {
   return (
-    <Grid item md={4} sm={9} style={{ minWidth: "30%" }}>
-      <Grid container>
-        <Subcategories />
-        <Filters />
-      </Grid>
-    </Grid>
+    <>
+      <Subcategories />
+      <Filters />
+    </>
   );
 }
 
