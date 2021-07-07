@@ -14,18 +14,38 @@ function PriceRadio() {
 
   return (
     <FormControl component="fieldset" style={{ width: "100%" }}>
-      <Typography variant="h6">Price</Typography>
+      <Typography variant="h5">Price</Typography>
       <RadioGroup
         aria-label="gender"
         name="gender1"
         value={value}
         onChange={handleChange}
       >
-        <FormControlLabel value="1" control={<Radio />} label="UNDER 25$" />
-        <FormControlLabel value="2" control={<Radio />} label="25$ TO 50$" />
-        <FormControlLabel value="3" control={<Radio />} label="50$ TO 100$" />
-        <FormControlLabel value="4" control={<Radio />} label="100$ TO 200$" />
-        <FormControlLabel value="5" control={<Radio />} label="200$ & ABOVE" />
+        <FormControlLabel
+          value="1"
+          control={<Radio size="small" />}
+          label="UNDER 25$"
+        />
+        <FormControlLabel
+          value="2"
+          control={<Radio size="small" />}
+          label="25$ TO 50$"
+        />
+        <FormControlLabel
+          value="3"
+          control={<Radio size="small" />}
+          label="50$ TO 100$"
+        />
+        <FormControlLabel
+          value="4"
+          control={<Radio size="small" />}
+          label="100$ TO 200$"
+        />
+        <FormControlLabel
+          value="5"
+          control={<Radio size="small" />}
+          label="200$ & ABOVE"
+        />
       </RadioGroup>
     </FormControl>
   );

@@ -1,28 +1,34 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import AppBar from "@material-ui/core/AppBar";
-import Toolbar from "@material-ui/core/Toolbar";
 import { loadCSS } from "fg-loadcss";
-import IconButton from "@material-ui/core/IconButton";
-import Badge from "@material-ui/core/Badge";
-import MenuIcon from "@material-ui/icons/Menu";
-import Collapse from "@material-ui/core/Collapse";
-import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import UseStyles from "../headerClasses";
-import {
-  Button,
-  Hidden,
-  Icon,
-  Link,
-  ListItem,
-  ListItemIcon,
-  Typography,
-} from "@material-ui/core";
-import { List } from "@material-ui/core";
+import MainNav from "./mainNav";
+import CollapseNav from "./collapseNav";
 
 function Nav() {
   const classes = UseStyles();
   const [open, setOpen] = React.useState(false);
+  const [navBackground, setNavBackground] = useState(classes.main);
+  const [navButton, setNavButton] = useState(classes.signup);
+  const [navLinks, setNavLinks] = useState(classes.navlinks);
+  const navRef = React.useRef();
+  navRef.current = navBackground;
 
+  useEffect(() => {
+    const handleScroll = () => {
+      console.log(window.scrollY);
+      if (window.scrollY > 66) {
+        setNavBackground(classes.main2);
+        setNavButton(classes.signup2);
+        setNavLinks(classes.navlinks2);
+      } else {
+        setNavBackground(classes.main);
+        setNavButton(classes.signup);
+        setNavLinks(classes.navlinks);
+      }
+    };
+    window.addEventListener("scroll", handleScroll);
+  });
   const handleClick = () => {
     setOpen(!open);
   };
@@ -38,119 +44,13 @@ function Nav() {
   }, []);
   return (
     <div className={classes.grow}>
-      <AppBar
-        position="fixed"
-        classes={{
-          root: classes.main,
-        }}
-      >
-        <Toolbar>
-          <Icon
-            className="fab fa-mdb"
-            style={{ fontSize: "3rem", width: "100px" }}
-          />
-          <div className={classes.grow} />
-          <div>
-            <Hidden smDown>
-              <List style={{ display: "flex" }}>
-                <IconButton color="inherit">
-                  <Badge
-                    badgeContent={1}
-                    color="secondary"
-                    style={{ margin: "0 20px" }}
-                  ></Badge>
-                  <ShoppingCartIcon />
-                </IconButton>
-
-                <ListItem style={{ display: "flex", gap: "1rem" }}>
-                  <Link href="#" style={{ color: "white" }}>
-                    Shop
-                  </Link>
-                  <Link href="#" style={{ color: "white" }}>
-                    Contact
-                  </Link>
-                  <Link href="#" style={{ color: "white" }}>
-                    Sign in
-                  </Link>
-                </ListItem>
-
-                <Button
-                  style={{
-                    width: 150,
-                    color: "white",
-                    border: "3px solid white",
-                    borderRadius: "50px",
-                  }}
-                  variant="outlined"
-                >
-                  SIGN UP
-                </Button>
-              </List>
-            </Hidden>
-
-            <Hidden mdUp>
-              <IconButton
-                edge="start"
-                className={classes.menuButton}
-                color="inherit"
-                aria-label="open drawer"
-                onClick={handleClick}
-              >
-                <MenuIcon />
-              </IconButton>
-            </Hidden>
-          </div>
-        </Toolbar>
-        <Hidden mdUp>
-          <Collapse in={open} timeout="auto" unmountOnExit>
-            <List
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-              }}
-            >
-              <IconButton color="inherit">
-                <Badge
-                  badgeContent={1}
-                  color="secondary"
-                  style={{ margin: "0 20px" }}
-                ></Badge>
-                <ShoppingCartIcon />
-              </IconButton>
-
-              <ListItem
-                style={{
-                  display: "flex",
-                  gap: "1rem",
-                  flexDirection: "column",
-                }}
-              >
-                <Link href="#" style={{ color: "black" }}>
-                  Shop
-                </Link>
-                <Link href="#" style={{ color: "black" }}>
-                  Contact
-                </Link>
-                <Link href="#" style={{ color: "black" }}>
-                  Sign in
-                </Link>
-              </ListItem>
-
-              <Button
-                style={{
-                  width: 100,
-                  color: "black",
-                  border: "3px solid black",
-                  borderRadius: "50px",
-                }}
-                variant="outlined"
-              >
-                SIGN UP
-              </Button>
-            </List>
-          </Collapse>
-        </Hidden>
+      <AppBar position="fixed" className={navBackground}>
+        <MainNav
+          navButton={navButton}
+          navLinks={navLinks}
+          handleClick={handleClick}
+        />
+        <CollapseNav open={open} />
       </AppBar>
     </div>
   );

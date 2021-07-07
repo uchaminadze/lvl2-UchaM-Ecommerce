@@ -43,6 +43,7 @@ function Condition() {
                 checked={checked.indexOf(value) !== -1}
                 tabIndex={-1}
                 disableRipple
+                size="small"
               />
               <Typography>
                 <Link

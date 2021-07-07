@@ -1,6 +1,6 @@
 import { makeStyles } from "@material-ui/core";
 
-const UseStyles = makeStyles((theme) => ({
+const UseStyles = makeStyles(() => ({
   main: {
     display: "flex",
     justifyContent: "space-between",
@@ -12,6 +12,13 @@ const UseStyles = makeStyles((theme) => ({
     display: "flex",
     alignItems: "center",
     gap: "1rem",
+  },
+
+  viewButton: {
+    border: "none",
+    color: "black",
+    borderRadius: "5px",
+    padding: "9px",
   },
 }));
 

@@ -10,6 +10,31 @@ const UseStyles = makeStyles((theme) => ({
     },
   },
 
+  main2: {
+    backgroundColor: "white",
+    color: "black",
+  },
+  signup: {
+    width: 150,
+    border: "3px solid white",
+    borderRadius: "50px",
+    color: "white",
+  },
+
+  signup2: {
+    width: 150,
+    borderRadius: "50px",
+    color: "skyblue",
+    border: "3px solid skyblue",
+  },
+
+  navlinks: {
+    color: "white",
+  },
+
+  navlinks2: {
+    color: "black",
+  },
   overlay: {
     width: "100%",
     minHeight: 400,

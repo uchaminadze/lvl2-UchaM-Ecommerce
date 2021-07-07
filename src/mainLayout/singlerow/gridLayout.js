@@ -1,25 +1,39 @@
 import React from "react";
-import { loadCSS } from "fg-loadcss";
-import Icon from "@material-ui/core/Icon";
-import { Box } from "@material-ui/core";
+import ViewListIcon from "@material-ui/icons/ViewList";
+import ViewModuleIcon from "@material-ui/icons/ViewModule";
+import ToggleButton from "@material-ui/lab/ToggleButton";
+import ToggleButtonGroup from "@material-ui/lab/ToggleButtonGroup";
 import UseStyles from "./singlerowClasses";
+import { Box, Button, Link } from "@material-ui/core";
 
 function GridLayout() {
   const classes = UseStyles();
-  React.useEffect(() => {
-    const node = loadCSS(
-      "https://use.fontawesome.com/releases/v5.12.0/css/all.css",
-      document.querySelector("#font-awesome-css")
-    );
 
-    return () => {
-      node.parentNode.removeChild(node);
-    };
-  }, []);
+  const handleClick = (value) => {
+    console.log("list-view");
+  };
+
+  const handleClick2 = (value) => {
+    console.log("module-view");
+  };
   return (
-    <Box className={classes.secondary}>
-      <Icon className="fas fa-th-list" />
-      <Icon className="fas fa-th-large" />
+    <Box>
+      <Button
+        value="list"
+        aria-label="list"
+        className={classes.viewButton}
+        onClick={handleClick}
+      >
+        <ViewListIcon />
+      </Button>
+      <Button
+        value="module"
+        className={classes.viewButton}
+        aria-label="module"
+        onClick={handleClick2}
+      >
+        <ViewModuleIcon />
+      </Button>
     </Box>
   );
 }
