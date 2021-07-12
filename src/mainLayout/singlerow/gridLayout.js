@@ -9,29 +9,12 @@ import { Box, Button, Link } from "@material-ui/core";
 function GridLayout() {
   const classes = UseStyles();
 
-  const handleClick = (value) => {
-    console.log("list-view");
-  };
-
-  const handleClick2 = (value) => {
-    console.log("module-view");
-  };
   return (
     <Box>
-      <Button
-        value="list"
-        aria-label="list"
-        className={classes.viewButton}
-        onClick={handleClick}
-      >
+      <Button value="list" aria-label="list" className={classes.viewButton}>
         <ViewListIcon />
       </Button>
-      <Button
-        value="module"
-        className={classes.viewButton}
-        aria-label="module"
-        onClick={handleClick2}
-      >
+      <Button value="module" className={classes.viewButton} aria-label="module">
         <ViewModuleIcon />
       </Button>
     </Box>

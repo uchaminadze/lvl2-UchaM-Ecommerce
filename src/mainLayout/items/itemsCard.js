@@ -4,11 +4,13 @@ import {
   CardMedia,
   Grid,
   Typography,
-  Link,
+  Link as MLINK,
 } from "@material-ui/core";
+import { Link } from "react-router-dom";
 import React from "react";
 
 function ItemCard({ items }) {
+  const preventDefault = (event) => event.preventDefault();
   return (
     <>
       {items.map((el) => {
@@ -29,13 +31,13 @@ function ItemCard({ items }) {
                 // width: 200,
               }}
             >
-              <Link href="#">
+              <MLINK component={Link} to={`/product/${el.price}/${el.title}`}>
                 <CardMedia
                   image={el.img}
                   style={{
-                    height: "200px",
+                    height: "300px",
                     width: "100%",
-                    backgroundSize: 150,
+                    backgroundSize: 200,
                   }}
                 />
                 <CardContent>
@@ -46,7 +48,7 @@ function ItemCard({ items }) {
                     {el.price} $
                   </Typography>
                 </CardContent>
-              </Link>
+              </MLINK>
             </Card>
           </Grid>
         );
