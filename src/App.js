@@ -67,7 +67,7 @@ function App() {
             <Header />
             <Main items={items} />
           </Route>
-          <Route path="/product/:price/:title">
+          <Route path="/product/:id/:price/:title">
             <ItemHeader />
             <SingleItem items={items} />
           </Route>

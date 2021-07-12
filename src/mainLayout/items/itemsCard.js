@@ -31,7 +31,10 @@ function ItemCard({ items }) {
                 // width: 200,
               }}
             >
-              <MLINK component={Link} to={`/product/${el.price}/${el.title}`}>
+              <MLINK
+                component={Link}
+                to={`/product/${el.id}/${el.price}/${el.title}`}
+              >
                 <CardMedia
                   image={el.img}
                   style={{
