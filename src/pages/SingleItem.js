@@ -7,7 +7,7 @@ import { useParams } from "react-router-dom";
 import SingleItemRight from "./singleItemRight";
 import Details from "./details/details";
 function SingleItem({ items }) {
-  const { price, title, img } = useParams();
+  const { price, title, img, id } = useParams();
   return (
     <Container maxWidth="lg" component="main">
       <Grid container>
@@ -26,7 +26,7 @@ function SingleItem({ items }) {
       </Grid>
       <Grid container>
         <Grid container item md={12} xs={12} style={{ margin: "50px 0" }}>
-          <Details price={price} title={title} />
+          <Details price={price} title={title} id={id} />
         </Grid>
       </Grid>
     </Container>

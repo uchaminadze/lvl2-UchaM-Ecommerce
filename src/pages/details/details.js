@@ -5,7 +5,7 @@ import Description from "./description";
 import Information from "./information";
 import Reviews from "./reviews";
 
-function Details({ price, title }) {
+function Details({ price, title, id }) {
   return (
     <Router>
       <Grid container item md={12} style={{ borderBottom: "1px solid grey" }}>
@@ -17,7 +17,7 @@ function Details({ price, title }) {
           xs={4}
           justify="center"
           component={Link}
-          to={`/product/${price}/${title}/`}
+          to={`/product/${id}/${price}/${title}/`}
         >
           <MLINK underline="none">DESCRIPTION</MLINK>
         </Grid>
@@ -29,7 +29,7 @@ function Details({ price, title }) {
           xs={4}
           justify="center"
           component={Link}
-          to={`/product/${price}/${title}/info`}
+          to={`/product/${id}/${price}/${title}/info`}
         >
           <MLINK underline="none">INFORMATION</MLINK>
         </Grid>
@@ -41,19 +41,19 @@ function Details({ price, title }) {
           xs={4}
           justify="center"
           component={Link}
-          to={`/product/${price}/${title}/rev`}
+          to={`/product/${id}/${price}/${title}/rev`}
         >
           <MLINK underline="none">REVIEWS (1)</MLINK>
         </Grid>
       </Grid>
       <Switch>
-        <Route exact path={`/product/${price}/${title}/`}>
+        <Route exact path={`/product/${id}/${price}/${title}/`}>
           <Description price={price} />
         </Route>
-        <Route path={`/product/${price}/${title}/info`}>
+        <Route path={`/product/${id}/${price}/${title}/info`}>
           <Information />
         </Route>
-        <Route path={`/product/${price}/${title}/rev`}>
+        <Route path={`/product/${id}/${price}/${title}/rev`}>
           <Reviews />
         </Route>
       </Switch>
