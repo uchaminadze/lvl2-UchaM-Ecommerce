@@ -7,7 +7,7 @@ function ItemTitle() {
       <Container maxWidth="lg">
         <Grid
           container
-          style={{ height: "20vh", marginTop: "8vh" }}
+          style={{ height: "200px", marginTop: "70px" }}
           alignItems="center"
           justify="center"
         >
