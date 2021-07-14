@@ -4,8 +4,9 @@ import React from "react";
 import Description from "./description";
 import Information from "./information";
 import Reviews from "./reviews";
+import { HOME_PAGE, SINGLE_ITEM } from "../../routes";
 
-function Details({ price, title, id }) {
+function Details({ items }) {
   return (
     <Router>
       <Grid container item md={12} style={{ borderBottom: "1px solid grey" }}>
@@ -17,7 +18,7 @@ function Details({ price, title, id }) {
           xs={4}
           justify="center"
           component={Link}
-          to={`/product/${id}/${price}/${title}/`}
+          to={`${SINGLE_ITEM}/${items.id}/${items.price}/${items.title}${HOME_PAGE}`}
         >
           <MLINK underline="none">DESCRIPTION</MLINK>
         </Grid>
@@ -29,7 +30,7 @@ function Details({ price, title, id }) {
           xs={4}
           justify="center"
           component={Link}
-          to={`/product/${id}/${price}/${title}/info`}
+          to={`${SINGLE_ITEM}/${items.id}/${items.price}/${items.title}${HOME_PAGE}info`}
         >
           <MLINK underline="none">INFORMATION</MLINK>
         </Grid>
@@ -41,19 +42,26 @@ function Details({ price, title, id }) {
           xs={4}
           justify="center"
           component={Link}
-          to={`/product/${id}/${price}/${title}/rev`}
+          to={`${SINGLE_ITEM}/${items.id}/${items.price}/${items.title}${HOME_PAGE}rev`}
         >
           <MLINK underline="none">REVIEWS (1)</MLINK>
         </Grid>
       </Grid>
       <Switch>
-        <Route exact path={`/product/${id}/${price}/${title}/`}>
-          <Description price={price} />
+        <Route
+          exact
+          path={`${SINGLE_ITEM}/${items.id}/${items.price}/${items.title}${HOME_PAGE}`}
+        >
+          <Description items={items} />
         </Route>
-        <Route path={`/product/${id}/${price}/${title}/info`}>
+        <Route
+          path={`${SINGLE_ITEM}/${items.id}/${items.price}/${items.title}${HOME_PAGE}info`}
+        >
           <Information />
         </Route>
-        <Route path={`/product/${id}/${price}/${title}/rev`}>
+        <Route
+          path={`${SINGLE_ITEM}/${items.id}/${items.price}/${items.title}${HOME_PAGE}rev`}
+        >
           <Reviews />
         </Route>
       </Switch>

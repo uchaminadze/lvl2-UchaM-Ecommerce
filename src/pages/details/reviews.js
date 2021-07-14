@@ -5,6 +5,7 @@ import {
   Typography,
   ListItemIcon,
   TextField,
+  Button,
 } from "@material-ui/core";
 import TextareaAutosize from "@material-ui/core/TextareaAutosize";
 import React from "react";
@@ -13,13 +14,21 @@ import Image from "../../images/tinyImg.jpg";
 function Reviews() {
   return (
     <Grid container>
-      <Grid item md={12}>
+      <Grid item md={12} sm={12}>
         <Typography variant="h6">1 review for Fantasy T-shirt</Typography>
         <Grid container item md={12}>
-          <Grid item md={1}>
-            <CardMedia image={Image} style={{ width: "60%", height: "60px" }} />
+          <Grid item md={1} sm={2} xs={3}>
+            <CardMedia
+              image={Image}
+              style={{
+                width: "60%",
+                height: "60px",
+                backgroundSize: 70,
+                minWidth: "60px",
+              }}
+            />
           </Grid>
-          <Grid item md={11}>
+          <Grid item md={11} sm={10} xs={9}>
             <Grid container item justify="space-between" md={12}>
               <Typography variant="subtitle1">
                 Marthasteward – January 28, 2020
@@ -80,8 +89,8 @@ function Reviews() {
             style={{ width: "100%" }}
             placeholder="Your review"
           />
-          <Grid container item md={12}>
-            <Grid item md={12}>
+          <Grid container>
+            <Grid item md={12} sm={12} xs={12}>
               <TextField
                 id="outlined-basic"
                 label="Outlined"
@@ -90,7 +99,7 @@ function Reviews() {
                 fullWidth="true"
               />
             </Grid>
-            <Grid item md={12}>
+            <Grid item md={12} sm={12} xs={12}>
               <TextField
                 id="outlined-basic"
                 label="Outlined"
@@ -99,6 +108,11 @@ function Reviews() {
                 fullWidth="true"
               />
             </Grid>
+          </Grid>
+          <Grid container justify="flex-end" item md={12} sm={12} xs={12}>
+            <Button variant="contained" color="primary">
+              ADD A REVIEW
+            </Button>
           </Grid>
         </Grid>
       </Grid>

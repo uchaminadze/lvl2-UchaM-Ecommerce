@@ -1,1 +1,2 @@
-export const SINGLE_ITEM = "/single_item";
+export const SINGLE_ITEM = "/product";
+export const HOME_PAGE = "/";

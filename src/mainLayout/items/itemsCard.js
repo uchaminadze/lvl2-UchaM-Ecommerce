@@ -8,54 +8,58 @@ import {
 } from "@material-ui/core";
 import { Link } from "react-router-dom";
 import React from "react";
+import Loader from "../../loader/loader";
+import { HOME_PAGE, SINGLE_ITEM } from "../../routes";
 
-function ItemCard({ items }) {
+function ItemCard({ items, loading }) {
   const preventDefault = (event) => event.preventDefault();
   return (
     <>
-      {items.map((el) => {
-        return (
-          <Grid
-            item
-            xs={12}
-            sm={6}
-            md={4}
-            style={{
-              textAlign: "center",
-            }}
-          >
-            <Card
+      <Loader isLoading={loading}>
+        {items.map((el) => {
+          return (
+            <Grid
+              item
+              xs={12}
+              sm={6}
+              md={4}
               style={{
-                boxShadow: "none",
-                backgroundColor: "transparent",
-                // width: 200,
+                textAlign: "center",
               }}
             >
-              <MLINK
-                component={Link}
-                to={`/product/${el.id}/${el.price}/${el.title}`}
+              <Card
+                style={{
+                  boxShadow: "none",
+                  backgroundColor: "transparent",
+                  // width: 200,
+                }}
               >
-                <CardMedia
-                  image={el.img}
-                  style={{
-                    height: "300px",
-                    width: "100%",
-                    backgroundSize: 200,
-                  }}
-                />
-                <CardContent>
-                  <Typography variant="subtitle1" style={{ color: "black" }}>
-                    {el.title}
-                  </Typography>
-                  <Typography variant="body1" color="textSecondary">
-                    {el.price} $
-                  </Typography>
-                </CardContent>
-              </MLINK>
-            </Card>
-          </Grid>
-        );
-      })}
+                <MLINK
+                  component={Link}
+                  to={`${SINGLE_ITEM}/${el.id}/${el.price}/${el.title}${HOME_PAGE}`}
+                >
+                  <CardMedia
+                    image={el.img}
+                    style={{
+                      height: "300px",
+                      width: "100%",
+                      backgroundSize: 200,
+                    }}
+                  />
+                  <CardContent>
+                    <Typography variant="subtitle1" style={{ color: "black" }}>
+                      {el.title}
+                    </Typography>
+                    <Typography variant="body1" color="textSecondary">
+                      {el.price} $
+                    </Typography>
+                  </CardContent>
+                </MLINK>
+              </Card>
+            </Grid>
+          );
+        })}
+      </Loader>
     </>
   );
 }

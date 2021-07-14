@@ -13,7 +13,7 @@ import Quantity from "./quantity";
 import Size from "./size";
 import ItemTable from "./table";
 
-function SingleItemRight({ price, title }) {
+function SingleItemRight({ items }) {
   React.useEffect(() => {
     const node = loadCSS(
       "https://use.fontawesome.com/releases/v5.12.0/css/all.css",
@@ -26,8 +26,8 @@ function SingleItemRight({ price, title }) {
   }, []);
   return (
     <Box>
-      <Typography variant="h6"> {title}</Typography>
-      <Typography variant="body1">SHIRTS</Typography>
+      <Typography variant="h6"> {items.title}</Typography>
+      <Typography variant="body1">{items.category}</Typography>
       <ListItemIcon style={{ alignItems: "center" }}>
         {[
           "fas fa-star",
@@ -44,13 +44,8 @@ function SingleItemRight({ price, title }) {
           );
         })}
       </ListItemIcon>
-      <Typography variant="body2">{price}</Typography>
-      <Typography variant="body1">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam,
-        sapiente illo. Sit error voluptas repellat rerum quidem, soluta enim
-        perferendis voluptates laboriosam. Distinctio, officia quis dolore quos
-        sapiente tempore alias.
-      </Typography>
+      <Typography variant="body2">{items.price} $</Typography>
+      <Typography variant="body1">{items.desc}</Typography>
       <ItemTable />
       <hr style={{ margin: "20px 0 20px 0" }} />
       <Grid container md={12}>

@@ -10,64 +10,26 @@ import Image4 from "./images/shirt4.jpg";
 import Footer from "./footer/footer";
 import Header from "./header/header";
 import Main from "./mainLayout/Main";
-import { SINGLE_ITEM } from "./routes";
+import { HOME_PAGE, SINGLE_ITEM } from "./routes";
 import ItemHeader from "./pages/header/header";
+import Api from "./api";
+import { ProductsFetch } from "./productsFetch";
 
 function App() {
-  const [items, setItems] = useState([
-    {
-      id: 1,
-      img: `${Image}`,
-      title: "Blue denim t-shirt",
-      price: "100$",
-      desc: "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eum optio sunt modi non dolor nam repudiandae eveniet accusamus nobis, quos sit debitis vel vero, in tenetur dolorem corporis neque praesentium.",
-    },
-    {
-      id: 2,
-      img: `${Image2}`,
-      title: "Black denim t-shirt",
-      price: "200$",
-      desc: "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eum optio sunt modi non dolor nam repudiandae eveniet accusamus nobis, quos sit debitis vel vero, in tenetur dolorem corporis neque praesentium.",
-    },
-    {
-      id: 3,
-      img: `${Image3}`,
-      title: "Grey sweater",
-      price: "300$",
-      desc: "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eum optio sunt modi non dolor nam repudiandae eveniet accusamus nobis, quos sit debitis vel vero, in tenetur dolorem corporis neque praesentium.",
-    },
-    {
-      id: 4,
-      img: `${Image4}`,
-      title: "Red hoodie",
-      price: "400$",
-      desc: "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eum optio sunt modi non dolor nam repudiandae eveniet accusamus nobis, quos sit debitis vel vero, in tenetur dolorem corporis neque praesentium.",
-    },
-    {
-      id: 5,
-      img: `${Image}`,
-      title: "Blue denim t-shirt 2",
-      price: "500$",
-      desc: "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eum optio sunt modi non dolor nam repudiandae eveniet accusamus nobis, quos sit debitis vel vero, in tenetur dolorem corporis neque praesentium.",
-    },
-    {
-      id: 6,
-      img: `${Image3}`,
-      title: "Grey sweater 2",
-      price: "600$",
-      desc: "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eum optio sunt modi non dolor nam repudiandae eveniet accusamus nobis, quos sit debitis vel vero, in tenetur dolorem corporis neque praesentium.",
-    },
-  ]);
+  const [items, setItems] = useState([]);
+  const [loading, setIsLoading] = useState(false);
+
+  ProductsFetch.ListFetch({ setItems, setIsLoading });
 
   return (
     <div className="App">
       <Router>
         <Switch>
-          <Route path="/" exact>
+          <Route path={`${HOME_PAGE}`} exact>
             <Header />
-            <Main items={items} />
+            <Main items={items} loading={loading} />
           </Route>
-          <Route path="/product/:id/:price/:title">
+          <Route path={`${SINGLE_ITEM}${HOME_PAGE}:id`}>
             <ItemHeader />
             <SingleItem items={items} />
           </Route>
@@ -79,3 +41,46 @@ function App() {
 }
 
 export default App;
+
+// {
+//   id: 1,
+//   img: `${Image}`,
+//   title: "Blue denim t-shirt",
+//   price: "100$",
+//   desc: "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eum optio sunt modi non dolor nam repudiandae eveniet accusamus nobis, quos sit debitis vel vero, in tenetur dolorem corporis neque praesentium.",
+// },
+// {
+//   id: 2,
+//   img: `${Image2}`,
+//   title: "Black denim t-shirt",
+//   price: "200$",
+//   desc: "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eum optio sunt modi non dolor nam repudiandae eveniet accusamus nobis, quos sit debitis vel vero, in tenetur dolorem corporis neque praesentium.",
+// },
+// {
+//   id: 3,
+//   img: `${Image3}`,
+//   title: "Grey sweater",
+//   price: "300$",
+//   desc: "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eum optio sunt modi non dolor nam repudiandae eveniet accusamus nobis, quos sit debitis vel vero, in tenetur dolorem corporis neque praesentium.",
+// },
+// {
+//   id: 4,
+//   img: `${Image4}`,
+//   title: "Red hoodie",
+//   price: "400$",
+//   desc: "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eum optio sunt modi non dolor nam repudiandae eveniet accusamus nobis, quos sit debitis vel vero, in tenetur dolorem corporis neque praesentium.",
+// },
+// {
+//   id: 5,
+//   img: `${Image}`,
+//   title: "Blue denim t-shirt 2",
+//   price: "500$",
+//   desc: "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eum optio sunt modi non dolor nam repudiandae eveniet accusamus nobis, quos sit debitis vel vero, in tenetur dolorem corporis neque praesentium.",
+// },
+// {
+//   id: 6,
+//   img: `${Image3}`,
+//   title: "Grey sweater 2",
+//   price: "600$",
+//   desc: "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eum optio sunt modi non dolor nam repudiandae eveniet accusamus nobis, quos sit debitis vel vero, in tenetur dolorem corporis neque praesentium.",
+// },
