@@ -18,7 +18,7 @@ function Details({ items }) {
           xs={4}
           justify="center"
           component={Link}
-          to={`${SINGLE_ITEM}/${items.id}/${items.price}/${items.title}${HOME_PAGE}`}
+          to={`${SINGLE_ITEM}/${items.id}/`}
         >
           <MLINK underline="none">DESCRIPTION</MLINK>
         </Grid>
@@ -30,7 +30,7 @@ function Details({ items }) {
           xs={4}
           justify="center"
           component={Link}
-          to={`${SINGLE_ITEM}/${items.id}/${items.price}/${items.title}${HOME_PAGE}info`}
+          to={`${SINGLE_ITEM}/${items.id}/info`}
         >
           <MLINK underline="none">INFORMATION</MLINK>
         </Grid>
@@ -42,27 +42,20 @@ function Details({ items }) {
           xs={4}
           justify="center"
           component={Link}
-          to={`${SINGLE_ITEM}/${items.id}/${items.price}/${items.title}${HOME_PAGE}rev`}
+          to={`${SINGLE_ITEM}/${items.id}/rev`}
         >
           <MLINK underline="none">REVIEWS (1)</MLINK>
         </Grid>
       </Grid>
       <Switch>
-        <Route
-          exact
-          path={`${SINGLE_ITEM}/${items.id}/${items.price}/${items.title}${HOME_PAGE}`}
-        >
-          <Description items={items} />
-        </Route>
-        <Route
-          path={`${SINGLE_ITEM}/${items.id}/${items.price}/${items.title}${HOME_PAGE}info`}
-        >
+        <Route path={`${SINGLE_ITEM}/${items.id}/info`}>
           <Information />
         </Route>
-        <Route
-          path={`${SINGLE_ITEM}/${items.id}/${items.price}/${items.title}${HOME_PAGE}rev`}
-        >
+        <Route path={`${SINGLE_ITEM}/${items.id}/rev`}>
           <Reviews />
+        </Route>
+        <Route path={`${SINGLE_ITEM}/${items.id}/`}>
+          <Description items={items} />
         </Route>
       </Switch>
     </Router>

@@ -1,2 +1,5 @@
 export const SINGLE_ITEM = "/product";
-export const HOME_PAGE = "/";
+export const ADMIN_PAGE = "/admin";
+export const ADMIN_CATEGORIES = "/admin/categories";
+export const ADMIN_USERS = "/admin/users";
+export const ADMIN_PRODUCTS = "/admin/";

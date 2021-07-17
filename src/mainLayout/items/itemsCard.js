@@ -8,7 +8,7 @@ import {
 } from "@material-ui/core";
 import { Link } from "react-router-dom";
 import React from "react";
-import Loader from "../../loader/loader";
+import Loader from "../../helpers/loader/loader";
 import { HOME_PAGE, SINGLE_ITEM } from "../../routes";
 
 function ItemCard({ items, loading }) {
@@ -34,10 +34,7 @@ function ItemCard({ items, loading }) {
                   // width: 200,
                 }}
               >
-                <MLINK
-                  component={Link}
-                  to={`${SINGLE_ITEM}/${el.id}/${el.price}/${el.title}${HOME_PAGE}`}
-                >
+                <MLINK component={Link} to={`${SINGLE_ITEM}/${el.id}/`}>
                   <CardMedia
                     image={el.img}
                     style={{

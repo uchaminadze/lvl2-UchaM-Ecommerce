@@ -2,9 +2,6 @@ import { Container, Grid } from "@material-ui/core";
 import React from "react";
 import ItemList from "../pages/itemsList";
 import Sidebar from "./sidebar/sidebar";
-// import { SINGLE_ITEM } from "../routes";
-
-// import UseStyles from "./mainClasses";
 
 function Main({ items, loading }) {
   return (

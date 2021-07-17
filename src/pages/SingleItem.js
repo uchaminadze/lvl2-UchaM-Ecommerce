@@ -6,9 +6,9 @@ import SingleItemLeft from "./singleItemLeft";
 import { useParams } from "react-router-dom";
 import SingleItemRight from "./singleItemRight";
 import Details from "./details/details";
-import Loader from "../loader/loader";
+import Loader from "../helpers/loader/loader";
 import Api from "../api";
-import { ProductsFetch } from "../productsFetch";
+
 function SingleItem() {
   const { id } = useParams();
   const [items, setItems] = useState([]);
@@ -21,14 +21,24 @@ function SingleItem() {
     return null;
   }
 
-  ProductsFetch.ItemFetch({ id, setItems, setIsLoading });
+  useEffect(() => {
+    setIsLoading(true);
+    Api.setSingleItem(id)
+      .then((res) => setItems(res))
+      .catch((err) => {
+        console.error(err);
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
+  }, []);
 
   return (
     <Loader isLoading={loading}>
       <ScrollToTopOnMount />
       <Container maxWidth="lg" component="main">
         <Grid container>
-          {items ? (
+          {items && (
             <Grid container spacing={3} justify="center">
               <Grid item md={6} xs={12}>
                 <SingleItemLeft items={items} />
@@ -37,8 +47,6 @@ function SingleItem() {
                 <SingleItemRight items={items} />
               </Grid>
             </Grid>
-          ) : (
-            ""
           )}
         </Grid>
         <Grid container>

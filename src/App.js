@@ -13,28 +13,42 @@ import Main from "./mainLayout/Main";
 import { HOME_PAGE, SINGLE_ITEM } from "./routes";
 import ItemHeader from "./pages/header/header";
 import Api from "./api";
-import { ProductsFetch } from "./productsFetch";
+import Admin from "./admin/admin";
 
 function App() {
   const [items, setItems] = useState([]);
   const [loading, setIsLoading] = useState(false);
 
-  ProductsFetch.ListFetch({ setItems, setIsLoading });
+  useEffect(() => {
+    setIsLoading(true);
+    Api.getProductList()
+      .then((resp) => setItems(resp))
+      .catch((err) => {
+        console.error(err);
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
+  }, []);
 
   return (
     <div className="App">
       <Router>
         <Switch>
-          <Route path={`${HOME_PAGE}`} exact>
+          <Route path="/" exact>
             <Header />
             <Main items={items} loading={loading} />
+            <Footer />
           </Route>
-          <Route path={`${SINGLE_ITEM}${HOME_PAGE}:id`}>
+          <Route path={`${SINGLE_ITEM}/:id`}>
             <ItemHeader />
             <SingleItem items={items} />
+            <Footer />
+          </Route>
+          <Route path="/admin">
+            <Admin />
           </Route>
         </Switch>
-        <Footer />
       </Router>
     </div>
   );
