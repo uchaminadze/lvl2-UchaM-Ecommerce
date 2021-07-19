@@ -9,7 +9,7 @@ import Image3 from "./images/shirt3.jpg";
 import Image4 from "./images/shirt4.jpg";
 import Footer from "./footer/footer";
 import Header from "./header/header";
-import Main from "./mainLayout/Main";
+import Main from "./mainLayout/main/Main";
 import { HOME_PAGE, SINGLE_ITEM } from "./routes";
 import ItemHeader from "./pages/header/header";
 import Api from "./api";
@@ -18,10 +18,15 @@ import Admin from "./admin/admin";
 function App() {
   const [items, setItems] = useState([]);
   const [loading, setIsLoading] = useState(false);
+  const perPage = 3;
+  const [currentPage, setCurrentPage] = useState(1);
+  const indexOfLastItem = currentPage * perPage;
+  const indexOfFirstItem = indexOfLastItem - perPage;
+  const currentItems = items.slice(indexOfFirstItem, indexOfLastItem);
 
   useEffect(() => {
     setIsLoading(true);
-    Api.getProductList()
+    Api.getProductList("products")
       .then((resp) => setItems(resp))
       .catch((err) => {
         console.error(err);
@@ -37,7 +42,11 @@ function App() {
         <Switch>
           <Route path="/" exact>
             <Header />
-            <Main items={items} loading={loading} />
+            <Main
+              currentItems={currentItems}
+              loading={loading}
+              setCurrentPage={setCurrentPage}
+            />
             <Footer />
           </Route>
           <Route path={`${SINGLE_ITEM}/:id`}>

@@ -7,14 +7,14 @@ import ItemCard2 from "../mainLayout/items/itemsCard2";
 
 // import ItemCard2 from "./itemsCard2";
 
-function ItemList({ items, loading }) {
+function ItemList({ currentItems, loading, setCurrentPage }) {
   return (
     <Grid item md={8} sm={9}>
       <Grid container>
-        <SingleRow />
+        <SingleRow setCurrentPage={setCurrentPage} />
         <Grid container style={{ marginTop: "2rem" }}>
           {/* <ItemCard2 items={items} />  */}
-          <ItemCard items={items} loading={loading} />
+          <ItemCard currentItems={currentItems} loading={loading} />
         </Grid>
         <SingleRow />
       </Grid>
