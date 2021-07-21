@@ -3,7 +3,7 @@ import React from "react";
 import ItemList from "../../pages/itemsList";
 import Sidebar from "../sidebar/sidebar";
 
-function Main({ currentItems, loading, setCurrentPage }) {
+function Main({ loading, limit, total, items, onChange }) {
   return (
     <Container maxWidth="lg" component="main" style={{ margin: "100px auto" }}>
       <Grid container spacing={3} justify="center">
@@ -11,9 +11,11 @@ function Main({ currentItems, loading, setCurrentPage }) {
           <Sidebar />
         </Grid>
         <ItemList
-          currentItems={currentItems}
           loading={loading}
-          setCurrentPage={setCurrentPage}
+          total={total}
+          limit={limit}
+          onChange={onChange}
+          items={items}
         />
       </Grid>
     </Container>

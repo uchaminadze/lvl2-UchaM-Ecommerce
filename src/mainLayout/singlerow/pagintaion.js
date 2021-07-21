@@ -2,18 +2,14 @@ import { Box } from "@material-ui/core";
 import { Pagination } from "@material-ui/lab";
 import React from "react";
 
-function PagePagination({ setCurrentPage }) {
-  const handlePageChange = (pageNumber) => {
-    console.log(`active page is ${pageNumber}`);
-    setCurrentPage(pageNumber);
-  };
+function PagePagination({ limit, total, onChange }) {
   return (
     <Box>
       <Pagination
-        count={3}
+        count={`${limit}`}
         variant="outlined"
         color="primary"
-        onChange={handlePageChange}
+        onChange={onChange}
       />
     </Box>
   );

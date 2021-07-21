@@ -11,12 +11,12 @@ import React from "react";
 import Loader from "../../helpers/loader/loader";
 import { HOME_PAGE, SINGLE_ITEM } from "../../routes";
 
-function ItemCard({ currentItems, loading }) {
+function ItemCard({ items, loading }) {
   const preventDefault = (event) => event.preventDefault();
   return (
     <>
       <Loader isLoading={loading}>
-        {currentItems.map((el) => {
+        {items.map((el) => {
           return (
             <Grid
               item

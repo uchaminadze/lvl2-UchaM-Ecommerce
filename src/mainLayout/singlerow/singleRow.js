@@ -4,12 +4,12 @@ import GridLayout from "./gridLayout";
 import PagePagination from "./pagintaion";
 import UseStyles from "./singlerowClasses";
 
-function SingleRow({ setCurrentPage }) {
+function SingleRow({ limit, total, onChange }) {
   const classes = UseStyles();
   return (
     <Box className={classes.main}>
       <GridLayout />
-      <PagePagination setCurrentPage={setCurrentPage} />
+      <PagePagination limit={limit} total={total} onChange={onChange} />
     </Box>
   );
 }
