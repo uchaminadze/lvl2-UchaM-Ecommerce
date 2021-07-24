@@ -11,6 +11,7 @@ import {
   Typography,
 } from "@material-ui/core";
 import { login, TOKEN_KEY } from "../utils/utils";
+import { useHistory } from "react-router-dom";
 
 const UseStyles = makeStyles(() => ({
   inputField: {
@@ -29,6 +30,7 @@ const UseStyles = makeStyles(() => ({
 
 export default function RegisterForm() {
   const [userAuth, setUserAuth] = useState();
+  const history = useHistory();
   const classes = UseStyles();
   const formik = useFormik({
     initialValues: {
@@ -86,7 +88,6 @@ export default function RegisterForm() {
         .then((data) => {
           console.log(data);
           setUserAuth(localStorage.setItem("token", data.token));
-          login(userAuth);
           console.log(userAuth);
         })
 

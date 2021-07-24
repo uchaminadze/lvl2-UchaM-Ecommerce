@@ -1,7 +1,7 @@
 export const TOKEN_KEY = "";
 
 export const login = () => {
-  localStorage.setItem("TestLogin", TOKEN_KEY);
+  localStorage.setItem(TOKEN_KEY, "TestLogin");
 };
 
 export const logout = () => {
