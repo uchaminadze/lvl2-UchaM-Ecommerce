@@ -1,15 +1,15 @@
 import { Container } from "@material-ui/core";
 import React from "react";
 import Footer from "../footer/footer";
-import SigninHeader from "./header/signinHeader";
-import SigninForm from "./signinForm";
+import RegisterHeader from "./header/registerHeader";
+import RegisterForm from "./registerForm";
 
-export default function Signin() {
+export default function Register() {
   return (
     <>
-      <SigninHeader />
+      <RegisterHeader />
       <Container maxWidth="sm">
-        <SigninForm />
+        <RegisterForm />
       </Container>
       <Footer />
     </>

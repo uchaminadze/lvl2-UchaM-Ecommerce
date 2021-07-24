@@ -14,30 +14,25 @@ import { HOME_PAGE, SINGLE_ITEM } from "./routes";
 import ItemHeader from "./pages/header/header";
 import Api from "./api";
 import Admin from "./admin/admin";
-import SigninHeader from "./registration/header/header";
+import SigninHeader from "./registration/header/signinHeader";
 import Signin from "./registration/signin";
 import PublicRoute from "./routes/publicRoute";
 import PrivateRoute from "./routes/privateRoute";
+import Register from "./registration/register";
 // import Signin from "./registration/signin";
 
 function App() {
   const [items, setItems] = useState([]);
   const [loading, setIsLoading] = useState(false);
-  const [paginate, setPaginate] = useState({
-    page: 1,
-    total: 100,
-    limit: 20,
-  });
+  const [page, setPage] = useState(1);
+  const [limit, setLimit] = useState(5);
+  const [total, setTotal] = useState(100);
 
-  const changePage = (p) => {
+  const changePage = (event, value) => {
     setIsLoading(true);
-    Api.getProductList(`products?limit${paginate.limit}&page=${paginate.page}`)
+    Api.getProductList(`products?limit=${limit}&page=${value}`)
       .then((resp) => {
-        setPaginate({
-          // ...page,
-          page: p,
-        });
-
+        setPage(value);
         setItems(resp);
       })
       .catch((err) => {
@@ -50,7 +45,7 @@ function App() {
 
   useEffect(() => {
     setIsLoading(true);
-    Api.getProductList("products")
+    Api.getProductList(`products?limit=${limit}&page=${page}`)
       .then((resp) => setItems(resp))
       .catch((err) => {
         console.error(err);
@@ -69,11 +64,8 @@ function App() {
             <Main
               items={items}
               loading={loading}
-              total={paginate.total}
-              limit={paginate.limit}
-              onChange={(paginate) => {
-                changePage(paginate);
-              }}
+              page={page}
+              onChange={changePage}
             />
             <Footer />
           </Route>
@@ -87,11 +79,11 @@ function App() {
           </Route> */}
           <PublicRoute
             restricted={true}
-            component={Signin}
-            path="/signin"
+            component={Register}
+            path="/register"
             exact
           />
-          <PrivateRoute component={Admin} path="/dashboard" exact />
+          <PrivateRoute component={Admin} path="/admin" exact />
         </Switch>
       </Router>
     </div>

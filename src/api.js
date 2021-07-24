@@ -1,7 +1,7 @@
 import { serializeProducts, serializeProducts2 } from "./serializers/product";
 
 const Api = {
-  baseUrl: "https://fakestoreapi.com/",
+  baseUrl: "http://159.65.126.180/api/",
   getData: function (url, params, method = "get") {
     return fetch(this.baseUrl + url, {
       method: method.toUpperCase(),
@@ -19,7 +19,7 @@ const Api = {
 
       .then((data) => {
         console.log(data);
-        return serializeProducts(data);
+        return serializeProducts(data.data);
       });
   },
 

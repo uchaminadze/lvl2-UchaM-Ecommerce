@@ -2,16 +2,15 @@ import { Box } from "@material-ui/core";
 import { Pagination } from "@material-ui/lab";
 import React from "react";
 
-function PagePagination({ limit, total, onChange }) {
+function PagePagination({ page, onChange }) {
   return (
-    <Box>
-      <Pagination
-        count={`${limit}`}
-        variant="outlined"
-        color="primary"
-        onChange={onChange}
-      />
-    </Box>
+    <Pagination
+      count={20}
+      variant="outlined"
+      color="primary"
+      page={page}
+      onChange={onChange}
+    />
   );
 }
 

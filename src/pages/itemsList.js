@@ -7,16 +7,16 @@ import ItemCard2 from "../mainLayout/items/itemsCard2";
 
 // import ItemCard2 from "./itemsCard2";
 
-function ItemList({ items, loading, limit, total, onChange }) {
+function ItemList({ items, loading, page, onChange }) {
   return (
     <Grid item md={8} sm={9}>
       <Grid container>
-        <SingleRow limit={limit} total={total} onChange={onChange} />
+        <SingleRow page={page} onChange={onChange} />
         <Grid container style={{ marginTop: "2rem" }}>
           {/* <ItemCard2 items={items} />  */}
           <ItemCard items={items} loading={loading} />
         </Grid>
-        <SingleRow />
+        <SingleRow page={page} onChange={onChange} />
       </Grid>
     </Grid>
   );
