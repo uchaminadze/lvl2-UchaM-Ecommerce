@@ -1,16 +1,28 @@
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
-import { List } from "@material-ui/core";
+import { Box, List } from "@material-ui/core";
 import IconButton from "@material-ui/core/IconButton";
 import Badge from "@material-ui/core/Badge";
-import { Button, Hidden, Icon, Link, ListItem } from "@material-ui/core";
+import {
+  Button,
+  Hidden,
+  Icon,
+  Link as MLINK,
+  ListItem,
+} from "@material-ui/core";
 import Toolbar from "@material-ui/core/Toolbar";
 import MenuIcon from "@material-ui/icons/Menu";
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
 import UseStyles from "../headerClasses";
 import NavDropdown from "./navdropdown/navDropdown";
+import { Link, useHistory } from "react-router-dom";
+import { CreateContext } from "../../store/IsMainContext";
+import { LOGIN_USER } from "../../routes";
 
 function MainNav({ navButton, navLinks, handleClick }) {
+  const context = useContext(CreateContext);
+  console.log(context.data.userToken);
   const classes = UseStyles();
+
   return (
     <>
       <Toolbar>
@@ -33,20 +45,37 @@ function MainNav({ navButton, navLinks, handleClick }) {
 
               <ListItem style={{ display: "flex", gap: "1rem" }}>
                 {/* <NavDropdown /> */}
-                <Link href="#" className={navLinks}>
+                <MLINK href="#" className={navLinks}>
                   Shop
-                </Link>
-                <Link href="#" className={navLinks}>
+                </MLINK>
+                <MLINK href="#" className={navLinks}>
                   Contact
-                </Link>
-                <Link href="#" className={navLinks}>
-                  Sign in
-                </Link>
+                </MLINK>
+                {context.data.isLoggedin ? (
+                  <MLINK href="#" className={navLinks}>
+                    user
+                  </MLINK>
+                ) : (
+                  <Box>
+                    <MLINK
+                      component={Link}
+                      to={`${LOGIN_USER}`}
+                      href="#"
+                      className={navLinks}
+                    >
+                      Sign in
+                    </MLINK>
+                    <Button
+                      component={Link}
+                      to="/register"
+                      className={navButton}
+                      variant="outlined"
+                    >
+                      SIGN UP
+                    </Button>
+                  </Box>
+                )}
               </ListItem>
-
-              <Button className={navButton} variant="outlined">
-                SIGN UP
-              </Button>
             </List>
           </Hidden>
 

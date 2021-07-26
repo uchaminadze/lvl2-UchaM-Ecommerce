@@ -12,6 +12,7 @@ import {
 } from "@material-ui/core";
 import { login, TOKEN_KEY } from "../utils/utils";
 import { useHistory } from "react-router-dom";
+import { LOGIN_USER } from "../routes";
 
 const UseStyles = makeStyles(() => ({
   inputField: {
@@ -87,8 +88,9 @@ export default function RegisterForm() {
 
         .then((data) => {
           console.log(data);
-          setUserAuth(localStorage.setItem("token", data.token));
-          console.log(userAuth);
+          localStorage.setItem("token", data.token);
+          // history.push(`${LOGIN_USER}`);
+          history.push("/login");
         })
 
         .catch((error) => console.error(error));

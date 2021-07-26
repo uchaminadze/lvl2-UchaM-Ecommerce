@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import AppBar from "@material-ui/core/AppBar";
 import { loadCSS } from "fg-loadcss";
 import UseStyles from "../headerClasses";
 import MainNav from "./mainNav";
 import CollapseNav from "./collapseNav";
+import { CreateContext } from "../../store/IsMainContext";
 
 function Nav() {
   const classes = UseStyles();
@@ -13,9 +14,10 @@ function Nav() {
   const [navLinks, setNavLinks] = useState(classes.navlinks);
   const navRef = React.useRef();
   navRef.current = navBackground;
+  const context = useContext(CreateContext);
 
   useEffect(() => {
-    const handleScroll = () => {
+    function handleScroll() {
       console.log(window.scrollY);
       if (window.scrollY > 66) {
         setNavBackground(classes.main2);
@@ -26,8 +28,26 @@ function Nav() {
         setNavButton(classes.signup);
         setNavLinks(classes.navlinks);
       }
-    };
+    }
     window.addEventListener("scroll", handleScroll);
+  });
+
+  useEffect(() => {
+    if (context.data.isMain === false) {
+      setNavBackground(classes.main2);
+      setNavButton(classes.signup2);
+      setNavLinks(classes.navlinks2);
+    }
+    if (window.scrollY > 66) {
+      setNavBackground(classes.main2);
+      setNavButton(classes.signup2);
+      setNavLinks(classes.navlinks2);
+    }
+    if (context.data.userToken === true) {
+      setNavBackground(classes.main);
+      setNavButton(classes.signup);
+      setNavLinks(classes.navlinks);
+    }
   });
   const handleClick = () => {
     setOpen(!open);

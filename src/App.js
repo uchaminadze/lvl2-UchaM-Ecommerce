@@ -10,7 +10,13 @@ import Image4 from "./images/shirt4.jpg";
 import Footer from "./footer/footer";
 import Header from "./header/header";
 import Main from "./mainLayout/main/Main";
-import { HOME_PAGE, SINGLE_ITEM } from "./routes";
+import {
+  ADMIN_PAGE,
+  HOME_PAGE,
+  LOGIN_USER,
+  REGISTER_USER,
+  SINGLE_ITEM,
+} from "./routes";
 import ItemHeader from "./pages/header/header";
 import Api from "./api";
 import Admin from "./admin/admin";
@@ -19,6 +25,7 @@ import Signin from "./registration/signin";
 import PublicRoute from "./routes/publicRoute";
 import PrivateRoute from "./routes/privateRoute";
 import Register from "./registration/register";
+import { CreateContext } from "./store/IsMainContext";
 // import Signin from "./registration/signin";
 
 function App() {
@@ -26,7 +33,15 @@ function App() {
   const [loading, setIsLoading] = useState(false);
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(5);
-  const [total, setTotal] = useState(100);
+  let [data, setData] = useState({
+    isMain: true,
+    isRegistered: false,
+    isLoggedin: false,
+    userToken: "",
+    userData: {},
+  });
+
+  console.log(data);
 
   const changePage = (event, value) => {
     setIsLoading(true);
@@ -56,37 +71,37 @@ function App() {
   }, []);
 
   return (
-    <div className="App">
-      <Router>
-        <Switch>
-          <Route path="/" exact>
-            <Header />
-            <Main
-              items={items}
-              loading={loading}
-              page={page}
-              onChange={changePage}
+    <CreateContext.Provider value={{ data, setData }}>
+      <div className="App">
+        <Router>
+          <Switch>
+            <Route path="/" exact>
+              <Header />
+              <Main
+                items={items}
+                loading={loading}
+                page={page}
+                onChange={changePage}
+              />
+              <Footer />
+            </Route>
+            <Route path={`${SINGLE_ITEM}/:id`}>
+              <ItemHeader />
+              <SingleItem items={items} />
+              <Footer />
+            </Route>
+            <Route path={`${ADMIN_PAGE}`} component={Admin} />
+            <Route
+              component={Register}
+              // restricted={true}
+              path={`${REGISTER_USER}`}
+              exact
             />
-            <Footer />
-          </Route>
-          <Route path={`${SINGLE_ITEM}/:id`}>
-            <ItemHeader />
-            <SingleItem items={items} />
-            <Footer />
-          </Route>
-          {/* <Route path="/admin">
-            <Admin />
-          </Route> */}
-          <PublicRoute
-            restricted={true}
-            component={Register}
-            path="/register"
-            exact
-          />
-          <PrivateRoute component={Admin} path="/admin" exact />
-        </Switch>
-      </Router>
-    </div>
+            <Route component={Signin} path={`${LOGIN_USER}`} exact />
+          </Switch>
+        </Router>
+      </div>
+    </CreateContext.Provider>
   );
 }
 

@@ -10,6 +10,10 @@ const UseStyles = makeStyles((theme) => ({
     },
   },
 
+  whiteBackground: {
+    backgroundColor: "white",
+  },
+
   main2: {
     backgroundColor: "white",
     color: "black",
@@ -50,6 +54,13 @@ const UseStyles = makeStyles((theme) => ({
     backgroundRepeat: "no-repeat",
     backgroundPosition: "center",
     minHeight: 400,
+  },
+
+  itemTitle: {
+    height: "190px",
+    marginTop: "70px",
+    display: "flex",
+    alignItems: "center",
   },
   grow: {
     flexGrow: 1,

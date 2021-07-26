@@ -1,13 +1,18 @@
 import { Container } from "@material-ui/core";
-import React from "react";
+import React, { useContext } from "react";
 import Footer from "../footer/footer";
-import SigninHeader from "./header/signinHeader";
+import Header from "../header/header";
+import { CreateContext } from "../store/IsMainContext";
+
 import SigninForm from "./signinForm";
 
 export default function Signin() {
+  const context = useContext(CreateContext);
+  context.data.isMain = false;
+  context.data.isRegistered = true;
   return (
     <>
-      <SigninHeader />
+      <Header />
       <Container maxWidth="sm">
         <SigninForm />
       </Container>
