@@ -1,19 +1,18 @@
-import React, { createContext, useContext, useState } from "react";
-import { CreateContext } from "../store/IsMainContext";
+import React, { createContext, useContext, useEffect, useState } from "react";
+import { CreateContext } from "../store/context";
 
 import BackgroundImg from "./backgroundImg/backgroundImg";
 import ItemTitle from "./itemTitle";
 import Nav from "./nav/nav";
 
 function Header() {
-  const context = useContext(CreateContext);
+  const { data } = useContext(CreateContext);
 
-  console.log(context.data);
   return (
     <div>
       <header>
         <Nav />
-        {context.data.isMain ? <BackgroundImg /> : <ItemTitle />}
+        <BackgroundImg />
       </header>
     </div>
   );

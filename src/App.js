@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "./App.scss";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import { Link as MLINK } from "@material-ui/core";
@@ -25,7 +25,7 @@ import Signin from "./registration/signin";
 import PublicRoute from "./routes/publicRoute";
 import PrivateRoute from "./routes/privateRoute";
 import Register from "./registration/register";
-import { CreateContext } from "./store/IsMainContext";
+import { CreateContext } from "./store/context";
 // import Signin from "./registration/signin";
 
 function App() {
@@ -33,15 +33,28 @@ function App() {
   const [loading, setIsLoading] = useState(false);
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(5);
-  let [data, setData] = useState({
-    isMain: true,
-    isRegistered: false,
-    isLoggedin: false,
-    userToken: "",
-    userData: {},
-  });
-
-  console.log(data);
+  let userToken = localStorage.getItem("token");
+  let { data, setData } = useContext(CreateContext);
+  useEffect(() => {
+    if (userToken) {
+      fetch("http://159.65.126.180/api/auth/me", {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${userToken}`,
+        },
+      })
+        .then((res) => {
+          if (res.ok) {
+            return res.json();
+          }
+          throw new Error(res.statusText);
+        })
+        .then((dataa) => {
+          setData({ ...data, isLoggedin: true, userData: dataa });
+        })
+        .catch((error) => console.error(error));
+    }
+  }, [setData]);
 
   const changePage = (event, value) => {
     setIsLoading(true);
@@ -71,37 +84,35 @@ function App() {
   }, []);
 
   return (
-    <CreateContext.Provider value={{ data, setData }}>
-      <div className="App">
-        <Router>
-          <Switch>
-            <Route path="/" exact>
-              <Header />
-              <Main
-                items={items}
-                loading={loading}
-                page={page}
-                onChange={changePage}
-              />
-              <Footer />
-            </Route>
-            <Route path={`${SINGLE_ITEM}/:id`}>
-              <ItemHeader />
-              <SingleItem items={items} />
-              <Footer />
-            </Route>
-            <Route path={`${ADMIN_PAGE}`} component={Admin} />
-            <Route
-              component={Register}
-              // restricted={true}
-              path={`${REGISTER_USER}`}
-              exact
+    <div className="App">
+      <Router>
+        <Switch>
+          <Route path="/" exact>
+            <Header />
+            <Main
+              items={items}
+              loading={loading}
+              page={page}
+              onChange={changePage}
             />
-            <Route component={Signin} path={`${LOGIN_USER}`} exact />
-          </Switch>
-        </Router>
-      </div>
-    </CreateContext.Provider>
+            <Footer />
+          </Route>
+          <Route path={`${SINGLE_ITEM}/:id`}>
+            {/* <ItemHeader /> */}
+            <SingleItem items={items} />
+            <Footer />
+          </Route>
+          <PrivateRoute path={`${ADMIN_PAGE}`} component={Admin} />
+          <Route
+            component={Register}
+            // restricted={true}
+            path={`${REGISTER_USER}`}
+            exact
+          />
+          <Route component={Signin} path={`${LOGIN_USER}`} exact />
+        </Switch>
+      </Router>
+    </div>
   );
 }
 

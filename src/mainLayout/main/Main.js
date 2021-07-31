@@ -1,9 +1,12 @@
 import { Container, Grid } from "@material-ui/core";
-import React from "react";
+import React, { useContext, useEffect } from "react";
 import ItemList from "../../pages/itemsList";
+import { CreateContext } from "../../store/context";
 import Sidebar from "../sidebar/sidebar";
 
 function Main({ loading, page, items, onChange }) {
+  const { data, setData } = useContext(CreateContext);
+
   return (
     <Container maxWidth="lg" component="main" style={{ margin: "100px auto" }}>
       <Grid container spacing={3} justify="center">

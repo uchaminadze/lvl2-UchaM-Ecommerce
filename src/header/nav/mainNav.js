@@ -1,5 +1,5 @@
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
-import { Box, List } from "@material-ui/core";
+import { Box, CardMedia, List, Popover, Typography } from "@material-ui/core";
 import IconButton from "@material-ui/core/IconButton";
 import Badge from "@material-ui/core/Badge";
 import {
@@ -15,12 +15,31 @@ import React, { useContext, useEffect, useState } from "react";
 import UseStyles from "../headerClasses";
 import NavDropdown from "./navdropdown/navDropdown";
 import { Link, useHistory } from "react-router-dom";
-import { CreateContext } from "../../store/IsMainContext";
+import { CreateContext } from "../../store/context";
 import { LOGIN_USER } from "../../routes";
 
 function MainNav({ navButton, navLinks, handleClick }) {
-  const context = useContext(CreateContext);
-  console.log(context.data.userToken);
+  let userToken = localStorage.getItem("token");
+  const { data, setData } = useContext(CreateContext);
+  const [anchorEl, setAnchorEl] = React.useState(null);
+
+  const onClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const onClose = () => {
+    setAnchorEl(null);
+  };
+
+  const logOut = () => {
+    localStorage.removeItem("token");
+    if (!!userToken) {
+      return setData({ ...data, isLoggedin: false, userData: {} });
+    }
+  };
+
+  const open = Boolean(anchorEl);
+  const id = open ? "simple-popover" : undefined;
   const classes = UseStyles();
 
   return (
@@ -51,29 +70,65 @@ function MainNav({ navButton, navLinks, handleClick }) {
                 <MLINK href="#" className={navLinks}>
                   Contact
                 </MLINK>
-                {context.data.isLoggedin ? (
-                  <MLINK href="#" className={navLinks}>
-                    user
-                  </MLINK>
-                ) : (
-                  <Box>
-                    <MLINK
-                      component={Link}
-                      to={`${LOGIN_USER}`}
-                      href="#"
-                      className={navLinks}
-                    >
-                      Sign in
+                {userToken ? (
+                  <>
+                    <MLINK href="#" className={navLinks}>
+                      {`${data.userData.name}`}
                     </MLINK>
-                    <Button
-                      component={Link}
-                      to="/register"
-                      className={navButton}
-                      variant="outlined"
+                    <MLINK href="#" onClick={onClick}>
+                      <CardMedia
+                        image={`${data.userData.avatar}`}
+                        style={{ width: 40, height: 40, borderRadius: 100 }}
+                      />
+                    </MLINK>
+                    <Popover
+                      id={id}
+                      open={open}
+                      anchorEl={anchorEl}
+                      onClose={onClose}
+                      anchorOrigin={{
+                        vertical: "bottom",
+                        horizontal: "center",
+                      }}
+                      transformOrigin={{
+                        vertical: "top",
+                        horizontal: "center",
+                      }}
                     >
-                      SIGN UP
-                    </Button>
-                  </Box>
+                      <Box style={{ padding: "0.5rem" }}>
+                        <MLINK
+                          // href="#"
+                          component={Link}
+                          onClick={logOut}
+                        >
+                          Logout
+                        </MLINK>
+                      </Box>
+                    </Popover>
+                  </>
+                ) : (
+                  <>
+                    {data.userData && (
+                      <>
+                        <MLINK
+                          component={Link}
+                          to={`${LOGIN_USER}`}
+                          href="#"
+                          className={navLinks}
+                        >
+                          Sign in
+                        </MLINK>
+                        <Button
+                          component={Link}
+                          to="/register"
+                          className={navButton}
+                          variant="outlined"
+                        >
+                          SIGN UP
+                        </Button>
+                      </>
+                    )}
+                  </>
                 )}
               </ListItem>
             </List>

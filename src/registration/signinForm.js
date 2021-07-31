@@ -11,8 +11,9 @@ import {
   Typography,
 } from "@material-ui/core";
 import { TOKEN_KEY } from "../utils/utils";
-import { useHistory } from "react-router-dom";
-import { CreateContext } from "../store/IsMainContext";
+import { Redirect, Route, useHistory } from "react-router-dom";
+import { CreateContext } from "../store/context";
+import { ADMIN_PAGE } from "../routes";
 
 const UseStyles = makeStyles(() => ({
   inputField: {
@@ -30,9 +31,16 @@ const UseStyles = makeStyles(() => ({
 }));
 
 export default function SigninForm() {
-  const context = useContext(CreateContext);
-  context.data.userToken = "";
-  context.data.userData = {};
+  const { data, setData } = useContext(CreateContext);
+  const [loading, setIsLoading] = useState(false);
+  // useEffect(() => {
+  //   setData({
+  //     isMain: false,
+  //     isRegistered: true,
+  //     isLoggedin: false,
+  //     userData: {},
+  //   });
+  // }, [setData]);
   const history = useHistory();
   const classes = UseStyles();
   const formik = useFormik({
@@ -69,7 +77,6 @@ export default function SigninForm() {
     }),
     onSubmit: (values) => {
       console.log(values);
-
       fetch("http://159.65.126.180/api/auth/login", {
         method: "POST",
         headers: {
@@ -83,15 +90,19 @@ export default function SigninForm() {
           // checkbox: formik.values.checkbox,
         }),
       })
-        .then((res) => res.json(res.status === 200 && alert("congrats")))
-        .catch((error) => console.error(error))
-        .then((data) => {
-          console.log(data);
-          context.data.userToken = localStorage.getItem("token");
-          context.data.isMain = true;
-          context.data.isLoggedin = true;
-          history.push("/");
-        });
+        .then((res) => {
+          if (res.ok) {
+            return res.json();
+          }
+
+          throw new Error(res.statusText);
+        })
+
+        .then((dataa) => {
+          localStorage.setItem("token", dataa.token.access_token);
+        })
+        .then(() => history.push("/"))
+        .catch((error) => console.error(error));
     },
   });
 
