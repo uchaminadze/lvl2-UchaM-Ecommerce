@@ -1,36 +1,55 @@
 import { serializeProducts, serializeProducts2 } from "./serializers/product";
-
+let userToken = localStorage.getItem("token");
 const Api = {
   baseUrl: "http://159.65.126.180/api/",
-  getData: function (url, params, method = "get") {
+  getData: function (url, params, method = "GET") {
     return fetch(this.baseUrl + url, {
       method: method.toUpperCase(),
       headers: {
         "Content-Type": "application/json",
+        Accept: "application/json",
+        Authorization: `Bearer ${userToken}`,
       },
-
       body: JSON.stringify(params),
+    })
+      .then((res) => {
+        console.log(res);
+        if (res.ok) {
+          return res.json();
+        }
+        throw new Error(res.statusText);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  },
+
+  getProductList: function (url, params) {
+    return Api.getData(url, params, "GET").then((json) => {
+      return serializeProducts(json.data);
     });
   },
 
-  getProductList: function (url) {
-    return Api.getData(url)
-      .then((res) => res.json())
-
-      .then((data) => {
-        console.log(data);
-        return serializeProducts(data.data);
-      });
+  setSingleItem: function (id) {
+    return Api.getData("products/" + id).then((json) => {
+      return serializeProducts2(json);
+    });
   },
 
-  setSingleItem: function (id) {
-    return fetch(this.baseUrl + `products/${id}`)
-      .then((res) => res.json())
+  logInUser: function ({ email, password }) {
+    return Api.getData("auth/login", { email, password }, "POST");
+  },
 
-      .then((data) => {
-        console.log(data);
-        return serializeProducts2(data);
-      });
+  signUpUser: function ({ name, email, password, password_confirmation }) {
+    return Api.getData(
+      "register",
+      { name, email, password, password_confirmation },
+      "POST"
+    );
+  },
+
+  getUserInfo: function (params) {
+    return Api.getData("auth/me", params, "POST");
   },
 };
 
