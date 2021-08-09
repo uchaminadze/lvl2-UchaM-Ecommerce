@@ -73,12 +73,16 @@ export default function RegisterForm() {
         email: values.email,
         password: values.password,
         password_confirmation: values.password_confirmation,
-      }).then((data) => {
-        console.log(data);
-        // localStorage.setItem("token", data.token);
-        // history.push(`${LOGIN_USER}`);
-        history.push("/login");
-      });
+      })
+        .then((data) => {
+          console.log(data);
+          // localStorage.setItem("token", data.token);
+          // history.push(`${LOGIN_USER}`);
+          history.push("/login");
+        })
+        .catch((err) => {
+          console.error(err);
+        });
     },
   });
 

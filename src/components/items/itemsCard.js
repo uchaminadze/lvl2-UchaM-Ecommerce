@@ -11,16 +11,31 @@ import React, { useEffect, useState } from "react";
 import Loader from "../../components/loader/loader";
 import { HOME_PAGE, SINGLE_ITEM } from "../../routes";
 import Api from "../../api";
+import { setProd } from "../../store/products/prodActCrt";
+import { useDispatch, useSelector } from "react-redux";
+import { selectProd } from "../../store/products/prodSelector";
 
 function ItemCard() {
   const [items, setItems] = useState([]);
   const [loading, setIsLoading] = useState(false);
   const [limit, setLimit] = useState(5);
   const [page, setPage] = useState(1);
+  const dispatch = useDispatch();
+  const products = useSelector(selectProd);
   useEffect(() => {
     setIsLoading(true);
     Api.getProductList(`products?limit=${limit}&page=${page}`)
-      .then((resp) => setItems(resp))
+      .then((resp) => {
+        dispatch(setProd(resp));
+        {
+          products.map((el) => {
+            return console.log(el);
+          });
+        }
+      })
+      .catch((err) => {
+        console.error(err);
+      })
       .finally(() => {
         setIsLoading(false);
       });
@@ -29,7 +44,7 @@ function ItemCard() {
   return (
     <>
       <Loader isLoading={loading}>
-        {items.map((el) => {
+        {products.map((el) => {
           return (
             <Grid
               item

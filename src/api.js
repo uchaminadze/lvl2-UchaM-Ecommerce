@@ -11,17 +11,13 @@ const Api = {
         Authorization: `Bearer ${userToken}`,
       },
       body: JSON.stringify(params),
-    })
-      .then((res) => {
-        console.log(res);
-        if (res.ok) {
-          return res.json();
-        }
-        throw new Error(res.statusText);
-      })
-      .catch((err) => {
-        console.error(err);
-      });
+    }).then((res) => {
+      console.log(res);
+      if (res.ok) {
+        return res.json();
+      }
+      throw new Error(res.statusText);
+    });
   },
 
   getProductList: function (url, params) {

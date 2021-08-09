@@ -26,6 +26,9 @@ function SingleItem() {
     setIsLoading(true);
     Api.setSingleItem(id)
       .then((res) => setItems(res))
+      .catch((err) => {
+        console.error(err);
+      })
       .finally(() => {
         setIsLoading(false);
       });

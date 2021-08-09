@@ -15,13 +15,15 @@ import React, { useContext, useEffect, useState } from "react";
 import UseStyles from "../headerClasses";
 import NavDropdown from "./navdropdown/navDropdown";
 import { Link, useHistory } from "react-router-dom";
-import { CreateContext } from "../../../store/context";
 import { LOGIN_USER } from "../../../routes";
+import { selectUser } from "../../../store/user/userSelector";
+import { useSelector } from "react-redux";
+import { setUser } from "../../../store/user/userActCrt";
 
 function MainNav({ navButton, navLinks, handleClick }) {
   let userToken = localStorage.getItem("token");
-  const { data, setData } = useContext(CreateContext);
   const [anchorEl, setAnchorEl] = React.useState(null);
+  const user = useSelector(selectUser);
 
   const onClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -34,7 +36,7 @@ function MainNav({ navButton, navLinks, handleClick }) {
   const logOut = () => {
     localStorage.removeItem("token");
     if (!!userToken) {
-      return setData({ ...data, isLoggedin: false, userData: {} });
+      return setUser({ user: {} });
     }
   };
 
@@ -73,11 +75,11 @@ function MainNav({ navButton, navLinks, handleClick }) {
                 {userToken ? (
                   <>
                     <MLINK href="#" className={navLinks}>
-                      {`${data.userData.name}`}
+                      {`${user.name}`}
                     </MLINK>
                     <MLINK href="#" onClick={onClick}>
                       <CardMedia
-                        image={`${data.userData.avatar}`}
+                        image={`${user.avatar}`}
                         style={{ width: 40, height: 40, borderRadius: 100 }}
                       />
                     </MLINK>
@@ -108,7 +110,7 @@ function MainNav({ navButton, navLinks, handleClick }) {
                   </>
                 ) : (
                   <>
-                    {data.userData && (
+                    {user && (
                       <>
                         <MLINK
                           component={Link}

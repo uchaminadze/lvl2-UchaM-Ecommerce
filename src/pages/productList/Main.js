@@ -1,7 +1,6 @@
 import { Container, Grid } from "@material-ui/core";
 import React, { useContext, useEffect } from "react";
 import ItemList from "../../pages/singleItem/itemsList";
-import { CreateContext } from "../../store/context";
 import Sidebar from "../../layout/mainlayout/sidebar/sidebar";
 import MainLayout from "../../layout/mainlayout/mainLayout";
 

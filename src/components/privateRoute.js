@@ -1,7 +1,6 @@
 import React, { useContext } from "react";
 import { Route, Redirect } from "react-router-dom";
 import { ADMIN_PAGE, LOGIN_USER } from "../routes";
-import { CreateContext } from "../store/context";
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
   let userToken = localStorage.getItem("token");

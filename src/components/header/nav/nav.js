@@ -4,7 +4,6 @@ import { loadCSS } from "fg-loadcss";
 import UseStyles from "../headerClasses";
 import MainNav from "./mainNav";
 import CollapseNav from "./collapseNav";
-import { CreateContext } from "../../../store/context";
 
 function Nav() {
   const classes = UseStyles();
@@ -14,7 +13,6 @@ function Nav() {
   const [navLinks, setNavLinks] = useState(classes.navlinks);
   const navRef = React.useRef();
   navRef.current = navBackground;
-  const { data } = useContext(CreateContext);
 
   useEffect(() => {
     function handleScroll() {

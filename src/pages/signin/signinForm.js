@@ -11,8 +11,8 @@ import {
   Typography,
 } from "@material-ui/core";
 import { Redirect, Route, useHistory } from "react-router-dom";
-import { CreateContext } from "../../store/context";
 import Api from "../../api";
+import { setToken } from "../../store/user/userActCrt";
 
 const UseStyles = makeStyles(() => ({
   inputField: {
@@ -30,7 +30,6 @@ const UseStyles = makeStyles(() => ({
 }));
 
 export default function SigninForm() {
-  const { data, setData } = useContext(CreateContext);
   const [loading, setIsLoading] = useState(false);
   const userToken = localStorage.getItem("token");
   const history = useHistory();
@@ -69,18 +68,20 @@ export default function SigninForm() {
     }),
     onSubmit: (values) => {
       console.log(values);
-      Api.logInUser({ email: values.email, password: values.password }).then(
-        (data) => {
-          let exp = data.token.expires_in;
-          if (exp) {
-            console.log(exp);
-            localStorage.clear();
-            setData({ ...data, isLoggedin: false, userData: {} });
-          }
-          localStorage.setItem("token", data.token.access_token);
+      Api.logInUser({ email: values.email, password: values.password })
+        .then((data) => {
+          // let exp = data.token.expires_in;
+          // if (exp) {
+          //   console.log(exp);
+          //   localStorage.clear();
+          //   setData({ ...data, isLoggedin: false, userData: {} });
+          // }
+          setToken(localStorage.setItem("token", data.token.access_token));
           history.push("/");
-        }
-      );
+        })
+        .catch((err) => {
+          console.error(err);
+        });
     },
   });
 

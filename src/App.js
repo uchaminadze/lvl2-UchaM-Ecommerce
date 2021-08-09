@@ -8,7 +8,6 @@ import {
 } from "react-router-dom";
 import { ADMIN_PAGE, LOGIN_USER, REGISTER_USER, SINGLE_ITEM } from "./routes";
 import PrivateRoute from "./components/privateRoute";
-import { CreateContext } from "./store/context";
 import MainLayout from "./layout/mainlayout/mainLayout";
 import SingleItem from "./pages/singleItem/singleItem";
 import Admin from "./pages/admin/admin";
@@ -16,18 +15,25 @@ import Register from "./pages/registration/register";
 import Main from "./pages/productList/Main";
 import Signin from "./pages/signin/signin";
 import Api from "./api";
+import { setUser } from "./store/user/userActCrt";
+import { useDispatch, useSelector } from "react-redux";
+import { selectUser } from "./store/user/userSelector";
 
 function App() {
+  const dispatch = useDispatch();
   const history = useHistory();
   let userToken = localStorage.getItem("token");
-  let { data, setData } = useContext(CreateContext);
 
   useEffect(() => {
-    Api.getUserInfo().then((dataa) => {
-      if (userToken) {
-        setData({ ...data, isLoggedin: true, userData: dataa });
-      }
-    });
+    Api.getUserInfo()
+      .then((dataa) => {
+        if (userToken) {
+          dispatch(setUser(dataa));
+        }
+      })
+      .catch((err) => {
+        console.error(err);
+      });
   }, []);
 
   return (

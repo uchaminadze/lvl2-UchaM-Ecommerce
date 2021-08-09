@@ -19,6 +19,9 @@ function ItemList() {
         setPage(value);
         setItems(resp);
       })
+      .catch((err) => {
+        console.error(err);
+      })
       .finally(() => {
         setIsLoading(false);
       });
