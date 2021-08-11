@@ -21,6 +21,7 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { selectToken } from "../../store/user/userSelector";
 import { SET_TOKEN } from "../../store/user/userActConst";
+import { loginUser } from "../../store/user/userAct";
 
 const UseStyles = makeStyles(() => ({
   inputField: {
@@ -83,6 +84,7 @@ export default function SigninForm() {
           localStorage.setItem("token", data.token.access_token);
           dispatch(setToken(data.token.access_token));
           dispatch(LoggedIn(true));
+          dispatch(loginUser());
           history.push("/");
         })
         .catch((err) => {
