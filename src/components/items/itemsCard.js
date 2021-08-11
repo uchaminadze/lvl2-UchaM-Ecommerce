@@ -20,18 +20,13 @@ function ItemCard() {
   const [loading, setIsLoading] = useState(false);
   const [limit, setLimit] = useState(5);
   const [page, setPage] = useState(1);
-  const dispatch = useDispatch();
   const products = useSelector(selectProd);
+  const dispatch = useDispatch();
   useEffect(() => {
     setIsLoading(true);
     Api.getProductList(`products?limit=${limit}&page=${page}`)
       .then((resp) => {
         dispatch(setProd(resp));
-        {
-          products.map((el) => {
-            return console.log(el);
-          });
-        }
       })
       .catch((err) => {
         console.error(err);

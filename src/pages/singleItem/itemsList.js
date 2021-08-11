@@ -4,26 +4,22 @@ import SingleRow from "../../components/singlerow/singleRow";
 import ItemCard from "../../components/items/itemsCard";
 import Api from "../../api";
 import Loader from "../../components/loader/loader";
+import { useDispatch, useSelector } from "react-redux";
+import { setProd } from "../../store/products/prodActCrt";
+import { selectProd } from "../../store/products/prodSelector";
 
 // import ItemCard2 from "./itemsCard2";
 
 function ItemList() {
-  const [items, setItems] = useState([]);
-  const [loading, setIsLoading] = useState(false);
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(5);
   const changePage = (event, value) => {
-    setIsLoading(true);
     Api.getProductList(`products?limit=${limit}&page=${value}`)
-      .then((resp) => {
+      .then(() => {
         setPage(value);
-        setItems(resp);
       })
       .catch((err) => {
         console.error(err);
-      })
-      .finally(() => {
-        setIsLoading(false);
       });
   };
   return (
@@ -31,7 +27,7 @@ function ItemList() {
       <SingleRow page={page} onChange={changePage} />
       <Grid container style={{ marginTop: "2rem" }}>
         {/* <ItemCard2 items={items} />  */}
-        <ItemCard items={items} loading={loading} />
+        <ItemCard />
       </Grid>
       <SingleRow page={page} onChange={changePage} />
     </Grid>

@@ -1,5 +1,5 @@
 import { serializeProducts, serializeProducts2 } from "./serializers/product";
-let userToken = localStorage.getItem("token");
+
 const Api = {
   baseUrl: "http://159.65.126.180/api/",
   getData: function (url, params, method = "GET") {
@@ -8,7 +8,7 @@ const Api = {
       headers: {
         "Content-Type": "application/json",
         Accept: "application/json",
-        Authorization: `Bearer ${userToken}`,
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
       body: JSON.stringify(params),
     }).then((res) => {

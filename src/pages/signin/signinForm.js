@@ -12,7 +12,15 @@ import {
 } from "@material-ui/core";
 import { Redirect, Route, useHistory } from "react-router-dom";
 import Api from "../../api";
-import { setToken } from "../../store/user/userActCrt";
+import {
+  LoggedIn,
+  LogginIn,
+  setToken,
+  setUser,
+} from "../../store/user/userActCrt";
+import { useDispatch, useSelector } from "react-redux";
+import { selectToken } from "../../store/user/userSelector";
+import { SET_TOKEN } from "../../store/user/userActConst";
 
 const UseStyles = makeStyles(() => ({
   inputField: {
@@ -31,7 +39,8 @@ const UseStyles = makeStyles(() => ({
 
 export default function SigninForm() {
   const [loading, setIsLoading] = useState(false);
-  const userToken = localStorage.getItem("token");
+  const dispatch = useDispatch();
+  const token = useSelector(selectToken);
   const history = useHistory();
   const classes = UseStyles();
   const formik = useFormik({
@@ -70,13 +79,12 @@ export default function SigninForm() {
       console.log(values);
       Api.logInUser({ email: values.email, password: values.password })
         .then((data) => {
-          // let exp = data.token.expires_in;
-          // if (exp) {
-          //   console.log(exp);
-          //   localStorage.clear();
-          //   setData({ ...data, isLoggedin: false, userData: {} });
-          // }
-          setToken(localStorage.setItem("token", data.token.access_token));
+          console.log(data.user);
+
+          localStorage.setItem("token", data.token.access_token);
+          dispatch(setToken(data.token.access_token));
+          dispatch(LoggedIn(true));
+
           history.push("/");
         })
         .catch((err) => {

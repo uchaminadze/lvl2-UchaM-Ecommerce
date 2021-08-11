@@ -24,6 +24,7 @@ function MainNav({ navButton, navLinks, handleClick }) {
   let userToken = localStorage.getItem("token");
   const [anchorEl, setAnchorEl] = React.useState(null);
   const user = useSelector(selectUser);
+  const history = useHistory();
 
   const onClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -36,7 +37,8 @@ function MainNav({ navButton, navLinks, handleClick }) {
   const logOut = () => {
     localStorage.removeItem("token");
     if (!!userToken) {
-      return setUser({ user: {} });
+      // history.push(`${LOGIN_USER}`);
+      setUser({ user: {} });
     }
   };
 
@@ -75,11 +77,11 @@ function MainNav({ navButton, navLinks, handleClick }) {
                 {userToken ? (
                   <>
                     <MLINK href="#" className={navLinks}>
-                      {`${user.name}`}
+                      {user && `${user.name}`}
                     </MLINK>
                     <MLINK href="#" onClick={onClick}>
                       <CardMedia
-                        image={`${user.avatar}`}
+                        image={user && `${user.avatar}`}
                         style={{ width: 40, height: 40, borderRadius: 100 }}
                       />
                     </MLINK>
@@ -110,26 +112,25 @@ function MainNav({ navButton, navLinks, handleClick }) {
                   </>
                 ) : (
                   <>
-                    {user && (
-                      <>
-                        <MLINK
-                          component={Link}
-                          to={`${LOGIN_USER}`}
-                          href="#"
-                          className={navLinks}
-                        >
-                          Sign in
-                        </MLINK>
-                        <Button
-                          component={Link}
-                          to="/register"
-                          className={navButton}
-                          variant="outlined"
-                        >
-                          SIGN UP
-                        </Button>
-                      </>
-                    )}
+                    {/* {user && ( */}
+                    <>
+                      <MLINK
+                        component={Link}
+                        to={`${LOGIN_USER}`}
+                        href="#"
+                        className={navLinks}
+                      >
+                        Sign in
+                      </MLINK>
+                      <Button
+                        component={Link}
+                        to="/register"
+                        className={navButton}
+                        variant="outlined"
+                      >
+                        SIGN UP
+                      </Button>
+                    </>
                   </>
                 )}
               </ListItem>

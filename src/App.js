@@ -15,25 +15,28 @@ import Register from "./pages/registration/register";
 import Main from "./pages/productList/Main";
 import Signin from "./pages/signin/signin";
 import Api from "./api";
-import { setUser } from "./store/user/userActCrt";
+import { LoggedIn, setToken, setUser } from "./store/user/userActCrt";
 import { useDispatch, useSelector } from "react-redux";
-import { selectUser } from "./store/user/userSelector";
+import { selectToken, selectUser } from "./store/user/userSelector";
+import { SET_USER } from "./store/user/userActConst";
+import { loginUser } from "./store/user/userAct";
 
 function App() {
   const dispatch = useDispatch();
   const history = useHistory();
   let userToken = localStorage.getItem("token");
 
+  const userInfo = () => {
+    if (userToken) {
+      dispatch(loginUser());
+      dispatch(LoggedIn(true));
+    } else {
+      dispatch(LoggedIn(false));
+    }
+  };
+
   useEffect(() => {
-    Api.getUserInfo()
-      .then((dataa) => {
-        if (userToken) {
-          dispatch(setUser(dataa));
-        }
-      })
-      .catch((err) => {
-        console.error(err);
-      });
+    userInfo();
   }, []);
 
   return (

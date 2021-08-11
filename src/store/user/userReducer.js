@@ -1,9 +1,15 @@
-import { SET_TOKEN, SET_USER } from "./userActConst";
+import {
+  IS_LOGGED_IN,
+  LOGGED_IN,
+  LOGGIN_IN,
+  SET_TOKEN,
+  SET_USER,
+} from "./userActConst";
 
 const initialState = {
   user: {},
   isLogginIn: false,
-  isLogedIn: false,
+  isLoggedIn: false,
   token: "",
 };
 
@@ -18,6 +24,16 @@ export default function userReducer(state = initialState, action) {
       return {
         ...state,
         token: action.token,
+      };
+    case LOGGED_IN:
+      return {
+        ...state,
+        isLoggedIn: action.isLoggedIn,
+      };
+    case LOGGIN_IN:
+      return {
+        ...state,
+        isLogginIn: action.isLogginIn,
       };
     default:
       return state;

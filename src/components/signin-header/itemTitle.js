@@ -1,6 +1,6 @@
 import { Container, Grid, Typography } from "@material-ui/core";
 import React, { useContext } from "react";
-import UseStyles from "../header/headerClasses";
+import UseStyles from "../signin-header/headerClasses";
 // import { LOGIN_USER, REGISTER_USER } from "../routes";
 
 export default function ItemTitle() {
@@ -9,11 +9,7 @@ export default function ItemTitle() {
     <>
       <Container maxWidth="xs" className={classes.itemTitle}>
         <Grid container item md={12} justify="center">
-          {/* {data.isRegistered ? (
-            <Typography variant="h3">Sign in</Typography>
-          ) : (
-            <Typography variant="h3">Sign up</Typography>
-          )} */}
+          <Typography variant="h3">Sign in</Typography>
         </Grid>
       </Container>
     </>
