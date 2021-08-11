@@ -27,14 +27,14 @@ function App() {
   let userToken = localStorage.getItem("token");
 
   const userInfo = () => {
-    if (userToken) {
-      dispatch(loginUser());
-      dispatch(LoggedIn(true));
-    }
+    dispatch(loginUser());
+    dispatch(LoggedIn(true));
   };
 
   useEffect(() => {
-    userInfo();
+    if (userToken) {
+      userInfo();
+    }
   }, []);
 
   return (

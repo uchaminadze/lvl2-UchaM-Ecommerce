@@ -17,13 +17,14 @@ import NavDropdown from "./navdropdown/navDropdown";
 import { Link, useHistory } from "react-router-dom";
 import { LOGIN_USER } from "../../../routes";
 import { selectUser } from "../../../store/user/userSelector";
-import { useSelector } from "react-redux";
-import { setUser } from "../../../store/user/userActCrt";
+import { useDispatch, useSelector } from "react-redux";
+import { LoggedIn, setUser } from "../../../store/user/userActCrt";
 
 function MainNav({ navButton, navLinks, handleClick }) {
   let userToken = localStorage.getItem("token");
   const [anchorEl, setAnchorEl] = React.useState(null);
   const user = useSelector(selectUser);
+  const dispatch = useDispatch();
   const history = useHistory();
 
   const onClick = (event) => {
@@ -37,8 +38,8 @@ function MainNav({ navButton, navLinks, handleClick }) {
   const logOut = () => {
     localStorage.removeItem("token");
     if (!!userToken) {
-      // history.push(`${LOGIN_USER}`);
-      setUser({ user: {} });
+      dispatch(setUser({}));
+      dispatch(LoggedIn(false));
     }
   };
 

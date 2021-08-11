@@ -7,7 +7,4 @@ export const loginUser = (email, password) => (dispatch, getState) => {
     console.log(data);
     dispatch(setUser(data));
   });
-  // .finally(() => {
-  //   dispatch(LogginIn(false));
-  // });
 };
