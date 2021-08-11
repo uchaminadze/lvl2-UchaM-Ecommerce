@@ -80,11 +80,9 @@ export default function SigninForm() {
       Api.logInUser({ email: values.email, password: values.password })
         .then((data) => {
           console.log(data.user);
-
           localStorage.setItem("token", data.token.access_token);
           dispatch(setToken(data.token.access_token));
           dispatch(LoggedIn(true));
-
           history.push("/");
         })
         .catch((err) => {

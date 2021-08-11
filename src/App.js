@@ -30,8 +30,6 @@ function App() {
     if (userToken) {
       dispatch(loginUser());
       dispatch(LoggedIn(true));
-    } else {
-      dispatch(LoggedIn(false));
     }
   };
 
