@@ -28,7 +28,6 @@ function App() {
 
   const userInfo = () => {
     dispatch(loginUser());
-    dispatch(LoggedIn(true));
   };
 
   useEffect(() => {

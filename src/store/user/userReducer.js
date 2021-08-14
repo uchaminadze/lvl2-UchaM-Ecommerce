@@ -1,10 +1,4 @@
-import {
-  IS_LOGGED_IN,
-  LOGGED_IN,
-  LOGGIN_IN,
-  SET_TOKEN,
-  SET_USER,
-} from "./userActConst";
+import { LOGGED_IN, LOGGIN_IN, SET_TOKEN, SET_USER } from "./userActConst";
 
 const initialState = {
   user: {},

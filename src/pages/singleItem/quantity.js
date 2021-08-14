@@ -2,15 +2,19 @@ import { Box, Button, Container, Paper, Typography } from "@material-ui/core";
 import { IconButton } from "@material-ui/core";
 import { Grid } from "@material-ui/core";
 import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { setCounter } from "../../store/products/prodActCrt";
+import { selectCounter } from "../../store/products/prodSelector";
 
 function Quantity() {
-  const [counter, setCounter] = useState(0);
+  const dispatch = useDispatch();
+  const counter = useSelector(selectCounter);
   const counterUp = () => {
-    setCounter(counter + 1);
+    dispatch(setCounter(counter + 1));
   };
 
   const counterDown = () => {
-    setCounter(counter - 1);
+    dispatch(setCounter(counter - 1));
   };
   return (
     <>

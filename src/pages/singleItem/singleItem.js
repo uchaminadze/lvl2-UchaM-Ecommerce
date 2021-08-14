@@ -36,9 +36,10 @@ function SingleItem() {
 
   return (
     <>
-      <Loader isLoading={loading}>
-        <ScrollToTopOnMount />
-        <ItemLayout>
+      <ItemLayout>
+        <Loader isLoading={loading}>
+          <ScrollToTopOnMount />
+
           <Container maxWidth="lg" component="main">
             <Grid container>
               {items && (
@@ -58,8 +59,8 @@ function SingleItem() {
               </Grid>
             </Grid>
           </Container>
-        </ItemLayout>
-      </Loader>
+        </Loader>
+      </ItemLayout>
     </>
   );
 }
