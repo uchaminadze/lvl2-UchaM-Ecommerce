@@ -106,6 +106,15 @@ function MainNav({ navButton, navLinks, handleClick }) {
                         <MLINK
                           // href="#"
                           component={Link}
+                          onClick={() => {
+                            history.push("/user");
+                          }}
+                        >
+                          Account
+                        </MLINK>
+                        <MLINK
+                          // href="#"
+                          component={Link}
                           onClick={logOut}
                         >
                           Logout

@@ -2,11 +2,13 @@ import { serializeProducts, serializeProducts2 } from "./serializers/product";
 
 const Api = {
   baseUrl: "http://159.65.126.180/api/",
-  getData: function (url, params, method = "GET") {
+  getData: function (url, params, method = "GET", isFormdata = false) {
     return fetch(this.baseUrl + url, {
       method: method.toUpperCase(),
       headers: {
-        "Content-Type": "application/json",
+        "Content-Type": isFormdata
+          ? "application/x-form-data"
+          : "application/json",
         Accept: "application/json",
         Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
@@ -46,6 +48,15 @@ const Api = {
 
   getUserInfo: function (params) {
     return Api.getData("auth/me", params, "POST");
+  },
+
+  userUpdate: function ({ id, name, avatar }) {
+    return Api.getData(
+      "users/" + `${id}` + "/update",
+      { name, avatar },
+      "POST",
+      true
+    );
   },
 };
 

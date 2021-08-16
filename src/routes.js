@@ -5,3 +5,4 @@ export const ADMIN_USERS = "/admin/users";
 export const ADMIN_PRODUCTS = "/admin/";
 export const REGISTER_USER = "/register";
 export const LOGIN_USER = "/login";
+export const USER_PAGE = "/user";

@@ -6,7 +6,13 @@ import {
   Route,
   useHistory,
 } from "react-router-dom";
-import { ADMIN_PAGE, LOGIN_USER, REGISTER_USER, SINGLE_ITEM } from "./routes";
+import {
+  ADMIN_PAGE,
+  LOGIN_USER,
+  REGISTER_USER,
+  SINGLE_ITEM,
+  USER_PAGE,
+} from "./routes";
 import PrivateRoute from "./components/privateRoute";
 import MainLayout from "./layout/mainlayout/mainLayout";
 import SingleItem from "./pages/singleItem/singleItem";
@@ -20,6 +26,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { selectToken, selectUser } from "./store/user/userSelector";
 import { SET_USER } from "./store/user/userActConst";
 import { loginUser } from "./store/user/userAct";
+import UserUpdate from "./pages/userUpdate/userUpdate";
 
 function App() {
   const dispatch = useDispatch();
@@ -42,9 +49,10 @@ function App() {
         <Switch>
           <Route path="/" component={Main} exact />
           <Route path={`${SINGLE_ITEM}/:id`} component={SingleItem} />
-          <PrivateRoute path={`${ADMIN_PAGE}`} component={Admin} />
+          <PrivateRoute path={`${ADMIN_PAGE}`} component={Admin} exact />
           <Route path={`${REGISTER_USER}`} component={Register} exact />
           <Route path={`${LOGIN_USER}`} component={Signin} exact />
+          <Route path={`${USER_PAGE}`} component={UserUpdate} exact />
         </Switch>
       </Router>
     </div>

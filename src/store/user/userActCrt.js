@@ -1,4 +1,10 @@
-import { LOGGED_IN, LOGGIN_IN, SET_TOKEN, SET_USER } from "./userActConst";
+import {
+  LOGGED_IN,
+  LOGGIN_IN,
+  SET_TOKEN,
+  SET_USER,
+  UPLOAD_FILE,
+} from "./userActConst";
 
 export const setUser = (user) => {
   return {
@@ -22,5 +28,11 @@ export const LogginIn = (isLogginIn) => {
   return {
     type: LOGGIN_IN,
     isLogginIn,
+  };
+};
+export const UploadFile = (uploadfile) => {
+  return {
+    type: UPLOAD_FILE,
+    uploadfile,
   };
 };

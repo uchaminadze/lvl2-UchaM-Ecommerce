@@ -1,10 +1,17 @@
-import { LOGGED_IN, LOGGIN_IN, SET_TOKEN, SET_USER } from "./userActConst";
+import {
+  LOGGED_IN,
+  LOGGIN_IN,
+  SET_TOKEN,
+  SET_USER,
+  UPLOAD_FILE,
+} from "./userActConst";
 
 const initialState = {
   user: {},
   isLogginIn: false,
   isLoggedIn: false,
   token: "",
+  uploadfile: null,
 };
 
 export default function userReducer(state = initialState, action) {
@@ -28,6 +35,11 @@ export default function userReducer(state = initialState, action) {
       return {
         ...state,
         isLogginIn: action.isLogginIn,
+      };
+    case UPLOAD_FILE:
+      return {
+        ...state,
+        uploadfile: action.uploadfile,
       };
     default:
       return state;
