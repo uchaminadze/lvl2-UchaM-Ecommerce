@@ -3,6 +3,7 @@ import { Field, Form, FormikProvider, useFormik } from "formik";
 import * as Yup from "yup";
 import {
   Button,
+  CardMedia,
   Grid,
   Link,
   makeStyles,
@@ -18,6 +19,7 @@ import { UploadFile } from "../../store/user/userActCrt";
 
 const UseStyles = makeStyles(() => ({
   inputField: {
+    marginTop: "30px",
     marginBottom: "30px",
   },
 
@@ -32,17 +34,29 @@ const UseStyles = makeStyles(() => ({
 }));
 
 export default function UserUpdateForm() {
-  const userId = useSelector(selectUser);
+  const user = useSelector(selectUser);
   const dispatch = useDispatch();
-  const [file, setFile] = useState("");
   //   const selectedFile = useSelector(selectUploadFile);
   const classes = UseStyles();
+  // useEffect(() => {
+  //   inputRef.current.focus();
+  // }, []);
 
+  // const fileInput = inputRef;
+  // const fileInput = document.getElementById("avatar");
+  // const formData = new FormData();
+  // const changeHandler = () => {
+
+  // };
+  const [file, setFiles] = useState(null);
+  const inputRef = useRef();
+  console.log(file);
   const formik = useFormik({
     initialValues: {
       name: "",
       avatar: "",
     },
+
     // validationSchema: Yup.object({
     //   email: Yup.string()
     //     .min(
@@ -71,14 +85,15 @@ export default function UserUpdateForm() {
     // }),
 
     onSubmit: (values) => {
-      console.log(values);
-      let data = new FormData();
-      data.append("avatar", values.avatar);
+      let formData = new FormData();
+      formData.append("avatar", values.avatar);
+
       Api.userUpdate({
-        id: userId.id,
+        id: user.id,
         name: values.name,
-        // avatar: values.avatar,
+        avatar: formData,
       })
+
         // .then((data) => {
         //   console.log(data);
         //   // localStorage.setItem("token", data.token);
@@ -88,6 +103,7 @@ export default function UserUpdateForm() {
         .catch((err) => {
           console.error(err);
         });
+      console.log(values);
     },
   });
 
@@ -95,32 +111,44 @@ export default function UserUpdateForm() {
     <FormikProvider value={formik}>
       <Form>
         <Grid container md={12} sm={12} xs={12}>
+          <label htmlFor="name">Name:</label>
           <Field
             name="name"
-            type="name"
+            type="text"
             as={TextField}
             fullWidth
             variant="outlined"
-            label="Name"
+            label={`${user.name}`}
             className={classes.inputField}
           />
           {formik.touched.name && formik.errors.name ? (
             <div>{formik.errors.name}</div>
           ) : null}
 
-          <Field
-            name="avatar"
+          <input
             type="file"
-            as={TextField}
-            fullWidth
+            name="avatar"
             onChange={(event) => {
               formik.setFieldValue("avatar", event.target.files[0]);
             }}
+          />
+
+          {/* <Field
+            name="avatar"
+            id="avatar"
+            type="file"
+            as={TextField}
+            // inputRef={inputRef}
+            fullWidth
             className={classes.inputField}
+            // inputRef={inputRef}
+            // onChange={(e) => setFiles(e.target.value)}
+
+            // onChange={(e) => setFiles(e.target.files[0])}
           />
           {formik.touched.avatar && formik.errors.avatar ? (
             <div>{formik.errors.avatar}</div>
-          ) : null}
+          ) : null} */}
 
           <Grid container justify="center">
             <Button

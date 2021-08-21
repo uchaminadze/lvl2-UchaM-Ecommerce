@@ -6,12 +6,14 @@ const Api = {
     return fetch(this.baseUrl + url, {
       method: method.toUpperCase(),
       headers: {
-        "Content-Type": isFormdata
-          ? "application/x-form-data"
-          : "application/json",
+        // "Content-Type": isFormdata
+        //   ? "application/x-form-data"
+        // "Content-type": "application/json",
+        "Content-type": "multipart/form-data",
         Accept: "application/json",
         Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
+
       body: JSON.stringify(params),
     }).then((res) => {
       console.log(res);
@@ -54,8 +56,7 @@ const Api = {
     return Api.getData(
       "users/" + `${id}` + "/update",
       { name, avatar },
-      "POST",
-      true
+      "POST"
     );
   },
 };
