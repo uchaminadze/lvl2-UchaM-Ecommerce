@@ -1,4 +1,10 @@
-import { SET_CART, SET_COUNTER, SET_PAGE, SET_PROD } from "./prodActConst";
+import {
+  SET_CART,
+  SET_COUNTER,
+  SET_PAGE,
+  SET_PROD,
+  SET_PRODUCT_CART,
+} from "./prodActConst";
 
 export const setProd = (products) => {
   return {
@@ -25,5 +31,12 @@ export const setCart = (cart) => {
   return {
     type: SET_CART,
     cart,
+  };
+};
+
+export const setProdCart = (productCart) => {
+  return {
+    type: SET_PRODUCT_CART,
+    productCart,
   };
 };

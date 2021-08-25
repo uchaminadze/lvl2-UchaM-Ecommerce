@@ -16,17 +16,15 @@ import UseStyles from "../headerClasses";
 import NavDropdown from "./navdropdown/navDropdown";
 import { Link, useHistory } from "react-router-dom";
 import { LOGIN_USER } from "../../../routes";
-import { CART_PAGE } from "../../../routes";
 import { selectUser } from "../../../store/user/userSelector";
-import { useDispatch, useSelector } from "react-redux";
-import { LoggedIn, setUser } from "../../../store/user/userActCrt";
+import { useSelector } from "react-redux";
+import { setUser } from "../../../store/user/userActCrt";
 import { selectCart } from "../../../store/products/prodSelector";
 
 function MainNav({ navButton, navLinks, handleClick }) {
   let userToken = localStorage.getItem("token");
   const [anchorEl, setAnchorEl] = React.useState(null);
   const user = useSelector(selectUser);
-  const dispatch = useDispatch();
   const cart = useSelector(selectCart);
   const history = useHistory();
 
@@ -41,8 +39,8 @@ function MainNav({ navButton, navLinks, handleClick }) {
   const logOut = () => {
     localStorage.removeItem("token");
     if (!!userToken) {
-      dispatch(setUser({}));
-      dispatch(LoggedIn(false));
+      // history.push(`${LOGIN_USER}`);
+      setUser({ user: {} });
     }
   };
 
@@ -61,14 +59,14 @@ function MainNav({ navButton, navLinks, handleClick }) {
         <div>
           <Hidden smDown>
             <List style={{ display: "flex" }}>
-              <Link component={IconButton} color="inherit" to={`${CART_PAGE}`}>
+              <IconButton color="inherit">
                 <Badge
                   badgeContent={`${cart}`}
                   color="secondary"
                   style={{ margin: "0 20px" }}
                 ></Badge>
                 <ShoppingCartIcon />
-              </Link>
+              </IconButton>
 
               <ListItem style={{ display: "flex", gap: "1rem" }}>
                 {/* <NavDropdown /> */}
@@ -104,15 +102,6 @@ function MainNav({ navButton, navLinks, handleClick }) {
                       }}
                     >
                       <Box style={{ padding: "0.5rem" }}>
-                        <MLINK
-                          // href="#"
-                          component={Link}
-                          onClick={() => {
-                            history.push("/user");
-                          }}
-                        >
-                          Account
-                        </MLINK>
                         <MLINK
                           // href="#"
                           component={Link}

@@ -8,12 +8,13 @@ import {
 } from "react-router-dom";
 import {
   ADMIN_PAGE,
+  CART_PAGE,
   LOGIN_USER,
   REGISTER_USER,
   SINGLE_ITEM,
   USER_PAGE,
 } from "./routes";
-import PrivateRoute from "./components/privateRoute";
+import PrivateRoute from "./components/routes/privateRoute";
 import MainLayout from "./layout/mainlayout/mainLayout";
 import SingleItem from "./pages/singleItem/singleItem";
 import Admin from "./pages/admin/admin";
@@ -27,6 +28,7 @@ import { selectToken, selectUser } from "./store/user/userSelector";
 import { SET_USER } from "./store/user/userActConst";
 import { loginUser } from "./store/user/userAct";
 import UserUpdate from "./pages/userUpdate/userUpdate";
+import Cart from "./pages/cart/cart";
 
 function App() {
   const dispatch = useDispatch();
@@ -47,9 +49,10 @@ function App() {
     <div className="App">
       <Router>
         <Switch>
-          <Route path="/" component={Main} exact />
-          <Route path={`${SINGLE_ITEM}/:id`} component={SingleItem} />
           <PrivateRoute path={`${ADMIN_PAGE}`} component={Admin} exact />
+          <PrivateRoute path={`${CART_PAGE}`} component={Cart} exact />
+          <Route path="/" component={Main} exact />
+          <Route path={`${SINGLE_ITEM}/:id`} component={SingleItem} exact />
           <Route path={`${REGISTER_USER}`} component={Register} exact />
           <Route path={`${LOGIN_USER}`} component={Signin} exact />
           <Route path={`${USER_PAGE}`} component={UserUpdate} exact />

@@ -1,4 +1,10 @@
-import { SET_CART, SET_COUNTER, SET_PAGE, SET_PROD } from "./prodActConst";
+import {
+  SET_CART,
+  SET_COUNTER,
+  SET_PAGE,
+  SET_PROD,
+  SET_PRODUCT_CART,
+} from "./prodActConst";
 
 const initialState = {
   products: [],
@@ -6,6 +12,7 @@ const initialState = {
   page: 1,
   counter: 0,
   cart: 0,
+  productCart: [],
 };
 
 export default function productsReducer(state = initialState, action) {
@@ -35,6 +42,13 @@ export default function productsReducer(state = initialState, action) {
       return {
         ...state,
         cart: action.cart,
+      };
+    }
+
+    case SET_PRODUCT_CART: {
+      return {
+        ...state,
+        productCart: action.productCart,
       };
     }
     default:

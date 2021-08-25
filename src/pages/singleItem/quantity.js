@@ -1,4 +1,11 @@
-import { Box, Button, Container, Paper, Typography } from "@material-ui/core";
+import {
+  Box,
+  Button,
+  Container,
+  Paper,
+  TextField,
+  Typography,
+} from "@material-ui/core";
 import { IconButton } from "@material-ui/core";
 import { Grid } from "@material-ui/core";
 import React, { useState } from "react";
@@ -40,7 +47,11 @@ function Quantity() {
             justifyContent: "center",
           }}
         >
-          <Typography component="span">{counter}</Typography>
+          <TextField
+            variant="outlined"
+            inputProps={{ style: { textAlign: "center" } }}
+            value={counter}
+          />
         </Paper>
 
         <Paper variant="outlined">

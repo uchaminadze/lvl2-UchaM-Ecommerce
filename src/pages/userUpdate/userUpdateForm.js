@@ -15,6 +15,7 @@ import { useHistory } from "react-router-dom";
 import Api from "../../api";
 import { useDispatch, useSelector } from "react-redux";
 import { selectUploadFile, selectUser } from "../../store/user/userSelector";
+
 import { UploadFile } from "../../store/user/userActCrt";
 
 const UseStyles = makeStyles(() => ({
@@ -85,14 +86,7 @@ export default function UserUpdateForm() {
     // }),
 
     onSubmit: (values) => {
-      let formData = new FormData();
-      formData.append("avatar", values.avatar);
-
-      Api.userUpdate({
-        id: user.id,
-        name: values.name,
-        avatar: formData,
-      })
+      Api.userUpdate(user.id, values)
 
         // .then((data) => {
         //   console.log(data);
@@ -125,7 +119,8 @@ export default function UserUpdateForm() {
             <div>{formik.errors.name}</div>
           ) : null}
 
-          <input
+          <TextField
+            id="avatar"
             type="file"
             name="avatar"
             onChange={(event) => {

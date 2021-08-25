@@ -1,20 +1,25 @@
 import { serializeProducts, serializeProducts2 } from "./serializers/product";
-
+import { serialize } from "object-to-formdata";
 const Api = {
   baseUrl: "http://159.65.126.180/api/",
   getData: function (url, params, method = "GET", isFormdata = false) {
+    const paramsS = serialize(params);
+    const headers = {
+      header: isFormdata
+        ? {
+            Accept: "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          }
+        : {
+            "Content-type": "application/json",
+            Accept: "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+    };
     return fetch(this.baseUrl + url, {
       method: method.toUpperCase(),
-      headers: {
-        // "Content-Type": isFormdata
-        //   ? "application/x-form-data"
-        // "Content-type": "application/json",
-        "Content-type": "multipart/form-data",
-        Accept: "application/json",
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
-      },
-
-      body: JSON.stringify(params),
+      headers: headers.header,
+      body: isFormdata ? paramsS : JSON.stringify(params),
     }).then((res) => {
       console.log(res);
       if (res.ok) {
@@ -52,12 +57,13 @@ const Api = {
     return Api.getData("auth/me", params, "POST");
   },
 
-  userUpdate: function ({ id, name, avatar }) {
-    return Api.getData(
-      "users/" + `${id}` + "/update",
-      { name, avatar },
-      "POST"
-    );
+  userUpdate: function (id, values) {
+    const formData = {
+      name: values.name,
+      avatar: values.avatar,
+    };
+    console.log(formData.avatar);
+    return Api.getData(`users/${id}/update`, formData, "POST", true);
   },
 };
 
