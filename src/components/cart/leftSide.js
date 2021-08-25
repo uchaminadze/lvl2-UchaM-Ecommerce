@@ -3,20 +3,24 @@ import { Table } from "@material-ui/core";
 import { TableContainer } from "@material-ui/core";
 import { TableBody } from "@material-ui/core";
 import { Paper } from "@material-ui/core";
-import { selectProd } from "../../store/products/prodSelector";
+import { useSelector } from "react-redux";
+import { selectProd, selectProdCart } from "../../store/products/prodSelector";
 
 function LeftSide() {
-  let cookie;
+  const prodCart = useSelector(selectProdCart);
+  let cookie = document.cookie;
 
-  if (document.cookie) {
-    cookie = JSON.parse(document.cookie);
+  if (cookie) {
+    cookie = JSON.parse(cookie);
     console.log(cookie);
   }
 
   return (
     <>
       <Paper variant="elevation" elevation="5">
-        <Typography variant="h5">Cart (2 items)</Typography>
+        <Typography variant="h5">
+          Cart ({`${prodCart.length}`} items)
+        </Typography>
         {cookie ? (
           <TableContainer>
             <Table style={{ display: "flex", justifyContent: "space-between" }}>

@@ -30,7 +30,7 @@ function ItemCard() {
     cookieItem = JSON.stringify(el);
     document.cookie = cookieItem;
     dispatch(setProdCart([JSON.parse(cookieItem)]));
-    console.log(prodCart.length);
+    // console.log(prodCart.length);
   };
 
   // useEffect(() => {
@@ -38,6 +38,7 @@ function ItemCard() {
   //     console.log(cookieItem);
   //     dispatch(setProdCart([JSON.parse(cookieItem)]));
   //   }
+
   // }, []);
 
   return (

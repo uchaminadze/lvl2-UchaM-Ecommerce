@@ -16,8 +16,8 @@ import CartLayout from "../../layout/cartLayout/cartLayout";
 import { selectProdCart } from "../../store/products/prodSelector";
 
 function Cart() {
-  const prodCart = useSelector(selectProdCart);
-  console.log(prodCart.length);
+  // const prodCart = useSelector(selectProdCart);
+  // console.log(prodCart.length);
   return (
     <CartLayout>
       <Container maxWidth="lg" component="main">

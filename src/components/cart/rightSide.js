@@ -29,10 +29,10 @@ function RightSide() {
 
   const classes = useStyles();
 
-  let cookie;
+  let cookie = document.cookie;
 
-  if (document.cookie) {
-    cookie = JSON.parse(document.cookie);
+  if (cookie) {
+    cookie = JSON.parse(cookie);
     console.log(cookie);
   }
   return (
