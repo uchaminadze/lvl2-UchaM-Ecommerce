@@ -14,14 +14,13 @@ import { setCounter } from "../../store/products/prodActCrt";
 import { selectCounter } from "../../store/products/prodSelector";
 
 function Quantity() {
-  const dispatch = useDispatch();
-  const counter = useSelector(selectCounter);
+  const [counter, setCounter] = useState(0);
   const counterUp = () => {
-    dispatch(setCounter(counter + 1));
+    setCounter(counter + 1);
   };
 
   const counterDown = () => {
-    dispatch(setCounter(counter - 1));
+    setCounter(counter - 1);
   };
   return (
     <>

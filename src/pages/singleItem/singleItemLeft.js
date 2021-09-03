@@ -1,8 +1,11 @@
 import { Box, Card, CardMedia, Grid, Link } from "@material-ui/core";
 import React, { useState } from "react";
+import { useSelector } from "react-redux";
+import { selectSingleProd } from "../../store/singleProduct/singleSelector";
 // import { useParams } from "react-router-dom";
-function SingleItemLeft({ items }) {
-  const [image, setImage] = useState(items.img);
+function SingleItemLeft() {
+  let item = useSelector(selectSingleProd);
+  const [image, setImage] = useState(item.img);
 
   return (
     <>
@@ -20,7 +23,7 @@ function SingleItemLeft({ items }) {
           </Card>
         </Grid>
         <Grid container spacing={3} style={{ marginTop: "10px" }}>
-          {[items.img, items.img, items.img, items.img].map((value) => {
+          {[item.img, item.img, item.img, item.img].map((value) => {
             const mouseEnter = () => {
               setImage(value);
             };

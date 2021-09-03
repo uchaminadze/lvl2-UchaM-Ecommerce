@@ -20,15 +20,27 @@ import { CART_PAGE } from "../../../routes";
 import { selectUser } from "../../../store/user/userSelector";
 import { useDispatch, useSelector } from "react-redux";
 import { LoggedIn, setUser } from "../../../store/user/userActCrt";
-import { selectCart } from "../../../store/products/prodSelector";
+import { selectProdCart } from "../../../store/productsCart/cartSelector";
 
 function MainNav({ navButton, navLinks, handleClick }) {
   let userToken = localStorage.getItem("token");
   const [anchorEl, setAnchorEl] = React.useState(null);
   const user = useSelector(selectUser);
   const dispatch = useDispatch();
-  const cart = useSelector(selectCart);
   const history = useHistory();
+  let cart = useSelector(selectProdCart);
+
+  const setCookie = (value) => {
+    if (cart.length > 0) {
+      document.cookie = JSON.stringify(value);
+    }
+    // if (document.cookie.indexOf > 0) {
+    //   alert(prevValue + value);
+    // }
+  };
+  useEffect(() => {
+    setCookie(cart);
+  }, [cart]);
 
   const onClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -63,7 +75,7 @@ function MainNav({ navButton, navLinks, handleClick }) {
             <List style={{ display: "flex" }}>
               <Link component={IconButton} color="inherit" to={`${CART_PAGE}`}>
                 <Badge
-                  badgeContent={`${cart}`}
+                  badgeContent={`${cart.length}`}
                   color="secondary"
                   style={{ margin: "0 20px" }}
                 ></Badge>

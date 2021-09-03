@@ -29,11 +29,14 @@ import { SET_USER } from "./store/user/userActConst";
 import { loginUser } from "./store/user/userAct";
 import UserUpdate from "./pages/userUpdate/userUpdate";
 import Cart from "./pages/cart/cart";
+import { setProdCart } from "./store/productsCart/cartActCrt";
+import { selectProdCart } from "./store/productsCart/cartSelector";
 
 function App() {
   const dispatch = useDispatch();
   const history = useHistory();
   let userToken = localStorage.getItem("token");
+  let cart = useSelector(selectProdCart);
 
   const userInfo = () => {
     dispatch(loginUser());
@@ -43,19 +46,26 @@ function App() {
     if (userToken) {
       userInfo();
     }
+    let docCookie = document.cookie;
+    if (docCookie.length > 0) {
+      let parsedCookie = JSON.parse(docCookie);
+      console.log(parsedCookie);
+      console.log(cart);
+      dispatch(setProdCart(parsedCookie));
+    }
   }, []);
 
   return (
     <div className="App">
       <Router>
         <Switch>
-          <PrivateRoute path={`${ADMIN_PAGE}`} component={Admin} exact />
-          <PrivateRoute path={`${CART_PAGE}`} component={Cart} exact />
-          <Route path="/" component={Main} exact />
+          <PrivateRoute path={`${ADMIN_PAGE}`} component={Admin} />
+          <PrivateRoute path={`${CART_PAGE}`} component={Cart} />
           <Route path={`${SINGLE_ITEM}/:id`} component={SingleItem} exact />
           <Route path={`${REGISTER_USER}`} component={Register} exact />
           <Route path={`${LOGIN_USER}`} component={Signin} exact />
-          <Route path={`${USER_PAGE}`} component={UserUpdate} exact />
+          <Route path={`${USER_PAGE}`} component={UserUpdate} />
+          <Route path="/" component={Main} />
         </Switch>
       </Router>
     </div>

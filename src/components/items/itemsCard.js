@@ -13,37 +13,28 @@ import React, { useEffect, useState } from "react";
 import Loader from "../../components/loader/loader";
 import { HOME_PAGE, SINGLE_ITEM } from "../../routes";
 import Api from "../../api";
-import { setProd, setProdCart } from "../../store/products/prodActCrt";
+import { setProdCart } from "../../store/productsCart/cartActCrt";
 import { useDispatch, useSelector } from "react-redux";
-import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
-import { selectProd, selectProdCart } from "../../store/products/prodSelector";
+
+import { selectProd } from "../../store/products/prodSelector";
+import { selectProdCart } from "../../store/productsCart/cartSelector";
 import { selectLoggedIn } from "../../store/user/userSelector";
+import AddButton from "../addItemButton/button";
 
 function ItemCard() {
   const products = useSelector(selectProd);
   const loggedIn = useSelector(selectLoggedIn);
-  const prodCart = useSelector(selectProdCart);
+
   const dispatch = useDispatch();
-  let cookieItem;
-  const cookieclick = (el) => {
-    console.log(el);
-    cookieItem = JSON.stringify(el);
-    document.cookie = cookieItem;
-    dispatch(setProdCart([JSON.parse(cookieItem)]));
-    // console.log(prodCart.length);
-  };
+  let cart = useSelector(selectProdCart);
 
   // useEffect(() => {
-  //   if (cookieItem) {
-  //     console.log(cookieItem);
-  //     dispatch(setProdCart([JSON.parse(cookieItem)]));
-  //   }
-
+  //   dispatch(setProdCart([]));
   // }, []);
 
   return (
     <>
-      {products.map((el) => {
+      {products.map((el, index) => {
         return (
           <Grid
             item
@@ -58,8 +49,8 @@ function ItemCard() {
               style={{
                 boxShadow: "none",
                 backgroundColor: "transparent",
-                // width: 200,
               }}
+              // key={index}
             >
               <MLINK component={Link} to={`${SINGLE_ITEM}/${el.id}/`}>
                 <CardMedia
@@ -81,10 +72,7 @@ function ItemCard() {
               </MLINK>
               {loggedIn && (
                 <Box style={{ height: 50 }}>
-                  <Button variant="contained" onClick={() => cookieclick(el)}>
-                    <ShoppingCartIcon style={{ fontSize: "13px" }} /> ADD TO
-                    CART
-                  </Button>
+                  <AddButton el={el} index={index} />
                 </Box>
               )}
             </Card>

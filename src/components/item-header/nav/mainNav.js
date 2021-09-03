@@ -19,17 +19,14 @@ import { LOGIN_USER } from "../../../routes";
 import { selectUser } from "../../../store/user/userSelector";
 import { useSelector } from "react-redux";
 import { setUser } from "../../../store/user/userActCrt";
-import {
-  selectCart,
-  selectCounter,
-} from "../../../store/products/prodSelector";
+import { selectProdCart } from "../../../store/productsCart/cartSelector";
 
 function MainNav({ navButton, navLinks, handleClick }) {
   let userToken = localStorage.getItem("token");
   const [anchorEl, setAnchorEl] = React.useState(null);
   const user = useSelector(selectUser);
-  const cart = useSelector(selectCart);
   const history = useHistory();
+  let cart = useSelector(selectProdCart);
 
   const onClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -64,7 +61,7 @@ function MainNav({ navButton, navLinks, handleClick }) {
             <List style={{ display: "flex" }}>
               <IconButton color="inherit">
                 <Badge
-                  badgeContent={`${cart}`}
+                  badgeContent={`${cart.length}`}
                   color="secondary"
                   style={{ margin: "0 20px" }}
                 />

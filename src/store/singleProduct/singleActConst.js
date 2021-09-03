@@ -1,0 +1,1 @@
+export const SET_SINGLE_PROD = "SET_SINGLE_PROD";

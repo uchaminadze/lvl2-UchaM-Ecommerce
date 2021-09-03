@@ -9,10 +9,15 @@ import Details from "./details/details";
 import Loader from "../../components/loader/loader";
 import Api from "../../api";
 import ItemLayout from "../../layout/itemLayout/itemLayout";
+import { useDispatch, useSelector } from "react-redux";
+import { selectSingleProd } from "../../store/singleProduct/singleSelector";
+import { setSingleProd } from "../../store/singleProduct/singleActCrt";
 
 function SingleItem() {
   const { id } = useParams();
-  const [items, setItems] = useState([]);
+  // const [items, setItems] = useState([]);
+  let item = useSelector(selectSingleProd);
+  const dispatch = useDispatch();
   const [loading, setIsLoading] = useState(false);
   function ScrollToTopOnMount() {
     useEffect(() => {
@@ -25,7 +30,7 @@ function SingleItem() {
   useEffect(() => {
     setIsLoading(true);
     Api.setSingleItem(id)
-      .then((res) => setItems(res))
+      .then((res) => dispatch(setSingleProd(res)))
       .catch((err) => {
         console.error(err);
       })
@@ -42,20 +47,20 @@ function SingleItem() {
 
           <Container maxWidth="lg" component="main">
             <Grid container>
-              {items && (
+              {item && (
                 <Grid container spacing={3} justify="center">
                   <Grid item md={6} xs={12}>
-                    <SingleItemLeft items={items} />
+                    <SingleItemLeft />
                   </Grid>
                   <Grid item md={6} xs={12}>
-                    <SingleItemRight items={items} />
+                    <SingleItemRight />
                   </Grid>
                 </Grid>
               )}
             </Grid>
             <Grid container>
               <Grid container item md={12} xs={12} style={{ margin: "50px 0" }}>
-                <Details items={items} />
+                <Details />
               </Grid>
             </Grid>
           </Container>

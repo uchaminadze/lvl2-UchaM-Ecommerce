@@ -15,8 +15,13 @@ import Accordion from "@material-ui/core/Accordion";
 import AccordionSummary from "@material-ui/core/AccordionSummary";
 import AccordionDetails from "@material-ui/core/AccordionDetails";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
+import { useDispatch, useSelector } from "react-redux";
+import { selectProdCart } from "../../store/productsCart/cartSelector";
+import { setProdCart } from "../../store/productsCart/cartActCrt";
+import { useEffect } from "react";
 
 function RightSide() {
+  let cart = useSelector(selectProdCart);
   const useStyles = makeStyles((theme) => ({
     root: {
       width: "100%",
@@ -29,12 +34,11 @@ function RightSide() {
 
   const classes = useStyles();
 
-  let cookie = document.cookie;
-
-  if (cookie) {
-    cookie = JSON.parse(cookie);
-    console.log(cookie);
+  let total = 0;
+  for (let i = 0; i < cart.length; i++) {
+    total += cart[i].price;
   }
+
   return (
     <>
       <Paper variant="elevation" elevation="5">
@@ -47,11 +51,7 @@ function RightSide() {
             </TableBody>
 
             <TableBody>
-              {cookie ? (
-                <Typography variant="body1">${cookie.price}</Typography>
-              ) : (
-                <Typography variant="body1">$0</Typography>
-              )}
+              <Typography variant="body1">${Math.round(total)}</Typography>
               <Typography variant="body1">Gratis</Typography>
             </TableBody>
           </Table>
@@ -67,13 +67,9 @@ function RightSide() {
             </TableBody>
 
             <TableBody>
-              {cookie ? (
-                <Typography variant="body1">
-                  <strong>${cookie.price}</strong>
-                </Typography>
-              ) : (
-                <Typography variant="body1">$0</Typography>
-              )}
+              <Typography variant="body1">
+                <strong>${Math.round(total)}</strong>
+              </Typography>
             </TableBody>
           </Table>
           <Button size="large" variant="contained" color="primary" fullWidth>

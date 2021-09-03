@@ -1,13 +1,16 @@
 import { Icon, ListItemIcon, Typography } from "@material-ui/core";
 import { Grid } from "@material-ui/core";
 import React from "react";
+import { useSelector } from "react-redux";
+import { selectSingleProd } from "../../../store/singleProduct/singleSelector";
 
-function Description({ items }) {
+function Description() {
+  let item = useSelector(selectSingleProd);
   return (
     <Grid container>
       <Grid item md={12}>
         <Typography variant="h6">Product Description</Typography>
-        <Typography variant="body1">{items.category}</Typography>
+        <Typography variant="body1">{item.category}</Typography>
         <ListItemIcon style={{ alignItems: "center" }}>
           {[
             "fas fa-star",
@@ -24,8 +27,8 @@ function Description({ items }) {
             );
           })}
         </ListItemIcon>
-        <Typography variant="body1">{items.price} $</Typography>
-        <Typography variant="body2">{items.desc}</Typography>
+        <Typography variant="body1">{item.price} $</Typography>
+        <Typography variant="body2">{item.desc}</Typography>
       </Grid>
     </Grid>
   );

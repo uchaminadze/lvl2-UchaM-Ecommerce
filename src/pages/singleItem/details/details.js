@@ -5,8 +5,11 @@ import Description from "./description";
 import Information from "./information";
 import Reviews from "./reviews";
 import { HOME_PAGE, SINGLE_ITEM } from "../../../routes";
+import { selectSingleProd } from "../../../store/singleProduct/singleSelector";
+import { useSelector } from "react-redux";
 
-function Details({ items }) {
+function Details() {
+  let item = useSelector(selectSingleProd);
   return (
     <Router>
       <Grid container item md={12} style={{ borderBottom: "1px solid grey" }}>
@@ -18,7 +21,7 @@ function Details({ items }) {
           xs={4}
           justify="center"
           component={Link}
-          to={`${SINGLE_ITEM}/${items.id}/`}
+          to={`${SINGLE_ITEM}/${item.id}/`}
         >
           <MLINK underline="none">DESCRIPTION</MLINK>
         </Grid>
@@ -30,7 +33,7 @@ function Details({ items }) {
           xs={4}
           justify="center"
           component={Link}
-          to={`${SINGLE_ITEM}/${items.id}/info`}
+          to={`${SINGLE_ITEM}/${item.id}/info`}
         >
           <MLINK underline="none">INFORMATION</MLINK>
         </Grid>
@@ -42,20 +45,20 @@ function Details({ items }) {
           xs={4}
           justify="center"
           component={Link}
-          to={`${SINGLE_ITEM}/${items.id}/rev`}
+          to={`${SINGLE_ITEM}/${item.id}/rev`}
         >
           <MLINK underline="none">REVIEWS (1)</MLINK>
         </Grid>
       </Grid>
       <Switch>
-        <Route path={`${SINGLE_ITEM}/${items.id}/info`}>
+        <Route path={`${SINGLE_ITEM}/${item.id}/info`}>
           <Information />
         </Route>
-        <Route path={`${SINGLE_ITEM}/${items.id}/rev`}>
+        <Route path={`${SINGLE_ITEM}/${item.id}/rev`}>
           <Reviews />
         </Route>
-        <Route path={`${SINGLE_ITEM}/${items.id}/`}>
-          <Description items={items} />
+        <Route path={`${SINGLE_ITEM}/${item.id}/`}>
+          <Description />
         </Route>
       </Switch>
     </Router>

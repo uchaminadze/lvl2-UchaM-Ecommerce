@@ -8,12 +8,15 @@ import {
 } from "@material-ui/core";
 import { loadCSS } from "fg-loadcss";
 import React from "react";
+import { useSelector } from "react-redux";
+import { selectSingleProd } from "../../store/singleProduct/singleSelector";
 import Buttons from "./buttons";
 import Quantity from "./quantity";
 import Size from "./size";
 import ItemTable from "./table";
 
-function SingleItemRight({ items }) {
+function SingleItemRight() {
+  let item = useSelector(selectSingleProd);
   React.useEffect(() => {
     const node = loadCSS(
       "https://use.fontawesome.com/releases/v5.12.0/css/all.css",
@@ -26,8 +29,8 @@ function SingleItemRight({ items }) {
   }, []);
   return (
     <Box>
-      <Typography variant="h6"> {items.title}</Typography>
-      <Typography variant="body1">{items.category}</Typography>
+      <Typography variant="h6"> {item.title}</Typography>
+      <Typography variant="body1">{item.category}</Typography>
       <ListItemIcon style={{ alignItems: "center" }}>
         {[
           "fas fa-star",
@@ -44,8 +47,8 @@ function SingleItemRight({ items }) {
           );
         })}
       </ListItemIcon>
-      <Typography variant="body2">{items.price} $</Typography>
-      <Typography variant="body1">{items.desc}</Typography>
+      <Typography variant="body2">{item.price} $</Typography>
+      <Typography variant="body1">{item.desc}</Typography>
       <ItemTable />
       <hr style={{ margin: "20px 0 20px 0" }} />
       <Grid container md={12}>
