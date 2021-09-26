@@ -30,7 +30,7 @@ function SingleItem() {
   useEffect(() => {
     setIsLoading(true);
     Api.setSingleItem(id)
-      .then((res) => dispatch(setSingleProd(res)))
+      .then((data) => dispatch(setSingleProd(data)))
       .catch((err) => {
         console.error(err);
       })
@@ -66,6 +66,7 @@ function SingleItem() {
           </Container>
         </Loader>
       </ItemLayout>
+      {console.log(item)}
     </>
   );
 }

@@ -17,9 +17,10 @@ function ItemList() {
 
   useEffect(() => {
     setIsLoading(true);
-    Api.getProductList(`products?page=${page}`)
+    Api.getProductList("/")
       .then((resp) => {
         dispatch(setProd(resp));
+        console.log(resp);
       })
       .catch((err) => {
         console.error(err);

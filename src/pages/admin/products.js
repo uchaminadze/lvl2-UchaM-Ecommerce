@@ -21,7 +21,7 @@ export default function Products({ classes, handleDrawerToggle }) {
 
   useEffect(() => {
     setIsLoading(true);
-    Api.getProductList("products")
+    Api.getProductList()
       .then((resp) => setItems(resp))
       .catch((err) => {
         console.error(err);

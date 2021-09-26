@@ -1,8 +1,13 @@
 import { serializeProducts, serializeProducts2 } from "./serializers/product";
 import { serialize } from "object-to-formdata";
 const Api = {
-  baseUrl: "http://159.65.126.180/api/",
-  getData: function (url, params, method = "GET", isFormdata = false) {
+  baseUrl: "https://fakestoreapi.com/products",
+  getData: function (
+    url,
+    params,
+    method = "GET",
+    isFormdata = false
+  ) {
     const paramsS = serialize(params);
     const headers = {
       header: isFormdata
@@ -29,15 +34,15 @@ const Api = {
     });
   },
 
-  getProductList: function (url, params) {
-    return Api.getData(url, params, "GET").then((json) => {
-      return serializeProducts(json.data);
+  getProductList: function (params) {
+    return Api.getData(params).then((json) => {
+      return serializeProducts(json);
     });
   },
 
   setSingleItem: function (id) {
-    return Api.getData("products/" + id).then((json) => {
-      return serializeProducts2(json);
+    return Api.getData(`/${id}`).then((data) => {
+      return serializeProducts2(data)
     });
   },
 
